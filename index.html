@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simplify Your Writing</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>Simplify Your Writing</h1>
+      <p class="tagline">Deterministic phrase simplification — no AI, no guesses. A dictionary lookup engine that suggests shorter ways to say the same thing.</p>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <span id="stats" class="stats">No suggestions</span>
+    <div class="toolbar-actions">
+      <button id="clear" type="button" class="btn btn-ghost">Clear</button>
+      <button id="replaceAll" type="button" class="btn btn-primary">Replace All</button>
+    </div>
+  </div>
+
+  <div id="editor" class="editor">
+    <div id="mirror" class="mirror" aria-hidden="true"></div>
+    <div id="boxes" class="boxes"></div>
+    <textarea id="input" class="input" spellcheck="false" wrap="soft" placeholder="Paste or type your text here…">Due to the fact that the server crashed, we were unable to make a decision in a timely manner. In order to fix the issue, we need to take into consideration all of the available options. Prior to the outage, we made preparations in an effort to prevent this from happening again. In the event that problems continue, we will take action as soon as possible. The end result was a success, and for the most part the team was happy. Each and every member agreed that the majority of the work was completed on a daily basis. In spite of the fact that we had a number of challenges, we were able to make use of our resources. Going forward, we will continue on with the project in the near future. As a matter of fact, there is no doubt that we can do better. At the present time, we are in the process of reviewing our options. For all intents and purposes, the project is complete, and it is important to note that the team did a great job.</textarea>
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <script src="dictionary.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
