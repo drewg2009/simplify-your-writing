@@ -417,6 +417,14 @@ function showToast(msg) {
 /* ==================== Events ==================== */
 
 textarea.addEventListener("input", () => {
+  if (textarea.value === "") {
+    clearTimeout(rescanTimer);
+    clearTimeout(commitTimer);
+    matches = [];
+    render();
+    commitTimeline("");
+    return;
+  }
   clearTimeout(rescanTimer);
   rescanTimer = setTimeout(() => {
     matches = scan(textarea.value, 0);
