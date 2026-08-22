@@ -2,7 +2,7 @@
 
 A tiny, fully client-side tool that finds wordy phrases in your text and suggests shorter ways to say the same thing. No AI, no network calls, no randomness — just deterministic dictionary lookups in your browser.
 
-Paste text into the editor, and every phrase that can be tightened gets highlighted with a little suggestion box above it. Pick an option to replace that one phrase, hit **Replace All** to apply the top option everywhere, or dismiss a suggestion you don't agree with.
+Paste text into the editor, and every phrase that can be tightened gets highlighted. **Hover a highlighted phrase** to reveal its suggestion box (it stays open while your pointer is on the box), pick an option to replace that one phrase, hit **Replace All** to apply the top option everywhere, or dismiss a suggestion you don't agree with.
 
 ## Why no AI?
 
@@ -37,11 +37,13 @@ Anything that would make the text longer is discarded at startup (and logged to 
 - **Hash index** — at startup every dictionary phrase is indexed by its **first word** (`Map<firstWord, entries[]>`), so the scanner only ever looks at candidates that can actually match at the current position.
 - **Greedy longest-match scan** — the text is walked left to right. At each word only the first-word bucket is consulted, and the longest matching phrase wins (so `because of the fact that` beats `because of`, and they never overlap).
 - **Overlaps** — matches never overlap in the text, but their suggestion boxes can collide horizontally, so boxes are **staggered** into stacked rows above the phrase (flipping below the text when there's no room above).
+- **Hover tracking** — during layout every phrase's on-screen rectangle is recorded (`matchRects`), and a `mousemove` handler hit-tests the pointer against those rects (plus the visible box rects) so only the hovered phrase's box is ever shown. The phrase's character span is what gets tracked; the rects are derived from it each render.
 
 ### 4. Editing
 
-- **Per-phrase replace** — clicking an option rewrites the textarea and re-scans only the affected region: it keeps every suggestion that ends before the edit, drops everything inside the edited zone, and re-matches from a ~80-character context window before the edit to the end. Nothing else is touched.
-- **Replace All** — applies the first (shortest) option to every suggestion at once, then re-scans.
+- **Per-phrase replace** — clicking an option rewrites the textarea and re-scans only the affected region: it keeps every suggestion that ends before the edit, drops everything inside the edited zone, and re-matches from a ~80-character context window before the edit to the end. Nothing else is touched. The toast reports the phrase swap plus exactly how many characters (and words) it saved.
+- **Replace All** — applies the first (shortest) option to every suggestion at once, then re-scans. The toast reports how many phrases were replaced and the total characters and words saved.
+- **Undo / redo** — a timeline of text snapshots: every change (replace, replace all, clear, and typing bursts) pushes a new snapshot and discards anything ahead of it in the redo stack; undo pops backwards and re-pushes onto the redo stack. Typing is coalesced (a 500 ms idle debounce), so a burst of keystrokes is one undo step. Buttons in the toolbar, plus `Cmd/Ctrl+Z`, `Cmd/Ctrl+Shift+Z`, and `Ctrl+Y`.
 - **Dismiss (×)** — hides that suggestion until the next re-scan.
 - **Typing/pasting** — a 200 ms debounce triggers a full re-scan so suggestions stay in sync as you edit manually.
 

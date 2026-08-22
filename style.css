@@ -178,6 +178,11 @@ body {
   font-size: 13px;
   overflow: hidden;
   z-index: 6;
+  display: none;
+}
+
+.suggest-box.visible {
+  display: block;
 }
 
 .suggest-head {

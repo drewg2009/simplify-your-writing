@@ -7,11 +7,18 @@ const textarea = document.getElementById("input");
 const statsEl = document.getElementById("stats");
 const replaceAllBtn = document.getElementById("replaceAll");
 const clearBtn = document.getElementById("clear");
+const undoBtn = document.getElementById("undo");
+const redoBtn = document.getElementById("redo");
 
 const RESCAN_CONTEXT = 80;
 let nextId = 1;
 let matches = [];
+let matchRects = [];
 let rescanTimer = null;
+
+let history = [textarea.value];
+let historyIndex = 0;
+let commitTimer = null;
 
 /* ==================== Dictionary index ==================== */
 
@@ -189,11 +196,13 @@ function layoutBoxes(matchesList, marks) {
   const scrollLeft = editor.scrollLeft;
   const scrollTop = editor.scrollTop;
   const placed = [];
+  matchRects = [];
 
   for (let k = 0; k < marks.length; k++) {
     const mark = marks[k];
     const m = matchesList[k];
     const rect = mark.getBoundingClientRect();
+    matchRects.push({ id: m.id, left: rect.left, top: rect.top, right: rect.right, bottom: rect.bottom });
     const contentLeft = rect.left - editorRect.left + scrollLeft;
     const contentTop = rect.top - editorRect.top + scrollTop;
     const phraseHeight = rect.height;
@@ -249,6 +258,18 @@ function overlapsH(left, width, p) {
   return left < p.right && left + width > p.left;
 }
 
+function showMatchBox(id) {
+  for (const box of boxesLayer.children) {
+    box.classList.toggle("visible", Number(box.dataset.matchId) === id);
+  }
+}
+
+function hideAllBoxes() {
+  for (const box of boxesLayer.children) {
+    box.classList.remove("visible");
+  }
+}
+
 function resolveVertical(startTop, left, width, height, placed) {
   let top = startTop;
   let guard = 0;
@@ -291,29 +312,83 @@ function rescanAround(editStart) {
 function applyMatch(m, replacement) {
   const text = textarea.value;
   const rep = applyCasing(m, replacement);
-  textarea.value = spliceReplacement(text, m, rep);
+  const newText = spliceReplacement(text, m, rep);
+  textarea.value = newText;
+  const savedChars = Math.max(0, m.endChar - m.startChar - rep.length);
+  const savedWords = Math.max(0, m.entry.words.length - wordCount(rep));
+  commitTimeline(newText);
   rescanAround(m.startChar);
   render();
+  showToast(
+    (rep === "" ? "Removed \u201c" + m.entry.phrase + "\u201d" : "\u201c" + m.entry.phrase + "\u201d \u2192 \u201c" + rep + "\u201d") +
+      " \u00b7 saved " + savingsLabel(savedChars, savedWords)
+  );
 }
 
 function replaceAll() {
   const ordered = [...matches].sort((a, b) => b.startChar - a.startChar);
   if (!ordered.length) return;
   let text = textarea.value;
+  let savedChars = 0;
+  let savedWords = 0;
   for (const m of ordered) {
     const rep = applyCasing(m, m.entry.replacements[0]);
+    savedChars += Math.max(0, m.endChar - m.startChar - rep.length);
+    savedWords += Math.max(0, m.entry.words.length - wordCount(rep));
     text = spliceReplacement(text, m, rep);
   }
   textarea.value = text;
+  commitTimeline(text);
   matches = scan(text, 0);
   render();
-  showToast("Replaced " + ordered.length + " phrase" + (ordered.length === 1 ? "" : "s"));
+  showToast(
+    "Replaced " + ordered.length + " phrase" + (ordered.length === 1 ? "" : "s") +
+      " \u00b7 saved " + savingsLabel(savedChars, savedWords)
+  );
 }
 
 function clearAll() {
   textarea.value = "";
+  commitTimeline("");
   matches = [];
   render();
+}
+
+/* ==================== Undo / redo ==================== */
+
+function commitTimeline(newText) {
+  clearTimeout(commitTimer);
+  history = history.slice(0, historyIndex + 1);
+  history.push(newText);
+  historyIndex = history.length - 1;
+  updateHistoryUI();
+}
+
+function setTextAndRescan(newText) {
+  textarea.value = newText;
+  matches = scan(newText, 0);
+  render();
+}
+
+function undo() {
+  if (historyIndex <= 0) return;
+  clearTimeout(commitTimer);
+  historyIndex--;
+  setTextAndRescan(history[historyIndex]);
+  updateHistoryUI();
+}
+
+function redo() {
+  if (historyIndex >= history.length - 1) return;
+  clearTimeout(commitTimer);
+  historyIndex++;
+  setTextAndRescan(history[historyIndex]);
+  updateHistoryUI();
+}
+
+function updateHistoryUI() {
+  undoBtn.disabled = historyIndex <= 0;
+  redoBtn.disabled = historyIndex >= history.length - 1;
 }
 
 /* ==================== UI state ==================== */
@@ -322,6 +397,13 @@ function updateStats() {
   const n = matches.length;
   statsEl.textContent = n === 0 ? "No suggestions" : n + " suggestion" + (n === 1 ? "" : "s");
   replaceAllBtn.disabled = n === 0;
+  updateHistoryUI();
+}
+
+function savingsLabel(savedChars, savedWords) {
+  const parts = [savedChars + " char" + (savedChars === 1 ? "" : "s")];
+  if (savedWords > 0) parts.push(savedWords + " word" + (savedWords === 1 ? "" : "s"));
+  return parts.join(", ");
 }
 
 function showToast(msg) {
@@ -340,6 +422,12 @@ textarea.addEventListener("input", () => {
     matches = scan(textarea.value, 0);
     render();
   }, 200);
+  clearTimeout(commitTimer);
+  commitTimer = setTimeout(() => {
+    if (textarea.value !== history[historyIndex]) {
+      commitTimeline(textarea.value);
+    }
+  }, 500);
 });
 
 textarea.addEventListener("scroll", () => {
@@ -365,6 +453,38 @@ boxesLayer.addEventListener("click", (e) => {
 
 replaceAllBtn.addEventListener("click", replaceAll);
 clearBtn.addEventListener("click", clearAll);
+undoBtn.addEventListener("click", undo);
+redoBtn.addEventListener("click", redo);
+
+document.addEventListener("keydown", (e) => {
+  const mod = e.metaKey || e.ctrlKey;
+  if (!mod) return;
+  const key = e.key.toLowerCase();
+  if (key === "z") {
+    e.preventDefault();
+    if (e.shiftKey) redo();
+    else undo();
+  } else if (key === "y") {
+    e.preventDefault();
+    redo();
+  }
+});
+
+editor.addEventListener("mousemove", (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
+  for (const box of boxesLayer.children) {
+    const r = box.getBoundingClientRect();
+    if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
+      showMatchBox(Number(box.dataset.matchId));
+      return;
+    }
+  }
+  const hit = matchRects.find((mr) => x >= mr.left && x <= mr.right && y >= mr.top && y <= mr.bottom);
+  showMatchBox(hit ? hit.id : null);
+});
+
+editor.addEventListener("mouseleave", hideAllBoxes);
 
 window.addEventListener("resize", () => render());
 
