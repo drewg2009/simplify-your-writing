@@ -1,0 +1,5128 @@
+[
+  {
+    "phrase": "because of the fact that",
+    "replacements": [
+      "since",
+      "because",
+      "as"
+    ]
+  },
+  {
+    "phrase": "due to the fact that",
+    "replacements": [
+      "since",
+      "because"
+    ]
+  },
+  {
+    "phrase": "due to the fact",
+    "replacements": [
+      "because"
+    ]
+  },
+  {
+    "phrase": "owing to the fact that",
+    "replacements": [
+      "because",
+      "since"
+    ]
+  },
+  {
+    "phrase": "in view of the fact that",
+    "replacements": [
+      "because",
+      "since"
+    ]
+  },
+  {
+    "phrase": "in light of the fact that",
+    "replacements": [
+      "since",
+      "because"
+    ]
+  },
+  {
+    "phrase": "given the fact that",
+    "replacements": [
+      "since",
+      "because"
+    ]
+  },
+  {
+    "phrase": "considering the fact that",
+    "replacements": [
+      "since",
+      "because"
+    ]
+  },
+  {
+    "phrase": "thanks to the fact that",
+    "replacements": [
+      "since",
+      "because"
+    ]
+  },
+  {
+    "phrase": "on account of",
+    "replacements": [
+      "because of",
+      "due to"
+    ]
+  },
+  {
+    "phrase": "as a result of",
+    "replacements": [
+      "because of",
+      "due to"
+    ]
+  },
+  {
+    "phrase": "as a consequence of",
+    "replacements": [
+      "because of",
+      "due to"
+    ]
+  },
+  {
+    "phrase": "as a consequence",
+    "replacements": [
+      "therefore",
+      "so"
+    ]
+  },
+  {
+    "phrase": "by reason of",
+    "replacements": [
+      "because of"
+    ]
+  },
+  {
+    "phrase": "for the reason that",
+    "replacements": [
+      "because"
+    ]
+  },
+  {
+    "phrase": "for this reason",
+    "replacements": [
+      "therefore",
+      "so"
+    ]
+  },
+  {
+    "phrase": "for that reason",
+    "replacements": [
+      "therefore",
+      "so"
+    ]
+  },
+  {
+    "phrase": "on the grounds that",
+    "replacements": [
+      "because"
+    ]
+  },
+  {
+    "phrase": "the reason why",
+    "replacements": [
+      "why"
+    ]
+  },
+  {
+    "phrase": "in consequence",
+    "replacements": [
+      "because",
+      "as a result"
+    ]
+  },
+  {
+    "phrase": "attributable to",
+    "replacements": [
+      "due to",
+      "because of"
+    ]
+  },
+  {
+    "phrase": "occasioned by",
+    "replacements": [
+      "caused by"
+    ]
+  },
+  {
+    "phrase": "in order to",
+    "replacements": [
+      "to"
+    ]
+  },
+  {
+    "phrase": "in order for",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in order that",
+    "replacements": [
+      "so that",
+      "so"
+    ]
+  },
+  {
+    "phrase": "so as to",
+    "replacements": [
+      "to"
+    ]
+  },
+  {
+    "phrase": "for the purpose of",
+    "replacements": [
+      "for",
+      "to"
+    ]
+  },
+  {
+    "phrase": "for the purposes of",
+    "replacements": [
+      "for",
+      "to"
+    ]
+  },
+  {
+    "phrase": "with a view to",
+    "replacements": [
+      "to",
+      "so that"
+    ]
+  },
+  {
+    "phrase": "in an effort to",
+    "replacements": [
+      "to"
+    ]
+  },
+  {
+    "phrase": "in an attempt to",
+    "replacements": [
+      "to"
+    ]
+  },
+  {
+    "phrase": "with the aim of",
+    "replacements": [
+      "to"
+    ]
+  },
+  {
+    "phrase": "for the sake of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in case of",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "the use of",
+    "replacements": [
+      ""
+    ]
+  },
+  {
+    "phrase": "take action to",
+    "replacements": [
+      ""
+    ]
+  },
+  {
+    "phrase": "the month of",
+    "replacements": [
+      ""
+    ]
+  },
+  {
+    "phrase": "the year of",
+    "replacements": [
+      ""
+    ]
+  },
+  {
+    "phrase": "in the event that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "in the event of",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "in the eventuality that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "if and when",
+    "replacements": [
+      "if",
+      "when"
+    ]
+  },
+  {
+    "phrase": "to the extent that",
+    "replacements": [
+      "if",
+      "when"
+    ]
+  },
+  {
+    "phrase": "provided that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "in spite of the fact that",
+    "replacements": [
+      "although",
+      "though"
+    ]
+  },
+  {
+    "phrase": "despite the fact that",
+    "replacements": [
+      "although",
+      "though"
+    ]
+  },
+  {
+    "phrase": "notwithstanding the fact that",
+    "replacements": [
+      "although",
+      "though"
+    ]
+  },
+  {
+    "phrase": "regardless of the fact that",
+    "replacements": [
+      "although",
+      "though"
+    ]
+  },
+  {
+    "phrase": "irrespective of",
+    "replacements": [
+      "despite",
+      "regardless of"
+    ]
+  },
+  {
+    "phrase": "on the other hand",
+    "replacements": [
+      "however",
+      "conversely"
+    ]
+  },
+  {
+    "phrase": "that being the case",
+    "replacements": [
+      "if so"
+    ]
+  },
+  {
+    "phrase": "in any case",
+    "replacements": [
+      "anyway",
+      "regardless"
+    ]
+  },
+  {
+    "phrase": "at any rate",
+    "replacements": [
+      "anyway",
+      "regardless"
+    ]
+  },
+  {
+    "phrase": "in the meantime",
+    "replacements": [
+      "meanwhile"
+    ]
+  },
+  {
+    "phrase": "for all that",
+    "replacements": [
+      "despite"
+    ]
+  },
+  {
+    "phrase": "at this point in time",
+    "replacements": [
+      "now",
+      "currently"
+    ]
+  },
+  {
+    "phrase": "at the present time",
+    "replacements": [
+      "now",
+      "currently"
+    ]
+  },
+  {
+    "phrase": "at the present moment",
+    "replacements": [
+      "now",
+      "currently"
+    ]
+  },
+  {
+    "phrase": "at this moment in time",
+    "replacements": [
+      "now",
+      "currently"
+    ]
+  },
+  {
+    "phrase": "at this moment",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at the moment",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at this stage",
+    "replacements": [
+      "now",
+      "currently"
+    ]
+  },
+  {
+    "phrase": "at this juncture",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at the present day",
+    "replacements": [
+      "today",
+      "now"
+    ]
+  },
+  {
+    "phrase": "in the present day",
+    "replacements": [
+      "today",
+      "now"
+    ]
+  },
+  {
+    "phrase": "in this day and age",
+    "replacements": [
+      "today"
+    ]
+  },
+  {
+    "phrase": "in today's world",
+    "replacements": [
+      "today"
+    ]
+  },
+  {
+    "phrase": "at an early date",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the near future",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the not too distant future",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "at the earliest opportunity",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "as soon as possible",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "sooner rather than later",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "at an earlier point in time",
+    "replacements": [
+      "earlier",
+      "previously"
+    ]
+  },
+  {
+    "phrase": "at one point in time",
+    "replacements": [
+      "once",
+      "previously"
+    ]
+  },
+  {
+    "phrase": "prior to",
+    "replacements": [
+      "before"
+    ]
+  },
+  {
+    "phrase": "previous to",
+    "replacements": [
+      "before"
+    ]
+  },
+  {
+    "phrase": "subsequent to",
+    "replacements": [
+      "after"
+    ]
+  },
+  {
+    "phrase": "in the interim",
+    "replacements": [
+      "meanwhile",
+      "temporarily"
+    ]
+  },
+  {
+    "phrase": "at the same time",
+    "replacements": [
+      "simultaneously",
+      "meanwhile"
+    ]
+  },
+  {
+    "phrase": "for the time being",
+    "replacements": [
+      "temporarily",
+      "now"
+    ]
+  },
+  {
+    "phrase": "up to this point",
+    "replacements": [
+      "so far"
+    ]
+  },
+  {
+    "phrase": "up until now",
+    "replacements": [
+      "until now",
+      "so far"
+    ]
+  },
+  {
+    "phrase": "up to now",
+    "replacements": [
+      "so far"
+    ]
+  },
+  {
+    "phrase": "to date",
+    "replacements": [
+      "so far",
+      "up to now"
+    ]
+  },
+  {
+    "phrase": "as of late",
+    "replacements": [
+      "lately"
+    ]
+  },
+  {
+    "phrase": "of late",
+    "replacements": [
+      "lately"
+    ]
+  },
+  {
+    "phrase": "in the course of",
+    "replacements": [
+      "during",
+      "while"
+    ]
+  },
+  {
+    "phrase": "during the course of",
+    "replacements": [
+      "during"
+    ]
+  },
+  {
+    "phrase": "for the duration of",
+    "replacements": [
+      "during",
+      "for"
+    ]
+  },
+  {
+    "phrase": "during the period of",
+    "replacements": [
+      "during"
+    ]
+  },
+  {
+    "phrase": "for a period of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in the process of",
+    "replacements": [
+      "",
+      "during"
+    ]
+  },
+  {
+    "phrase": "in the midst of",
+    "replacements": [
+      "amid",
+      "during"
+    ]
+  },
+  {
+    "phrase": "sooner or later",
+    "replacements": [
+      "eventually"
+    ]
+  },
+  {
+    "phrase": "in the long run",
+    "replacements": [
+      "eventually",
+      "long-term"
+    ]
+  },
+  {
+    "phrase": "in the long term",
+    "replacements": [
+      "long-term"
+    ]
+  },
+  {
+    "phrase": "in the short term",
+    "replacements": [
+      "temporarily",
+      "short-term"
+    ]
+  },
+  {
+    "phrase": "in due course",
+    "replacements": [
+      "soon",
+      "eventually"
+    ]
+  },
+  {
+    "phrase": "going forward",
+    "replacements": [
+      "henceforth",
+      "now"
+    ]
+  },
+  {
+    "phrase": "in these times",
+    "replacements": [
+      "nowadays",
+      "today"
+    ]
+  },
+  {
+    "phrase": "in times like these",
+    "replacements": [
+      "now",
+      "nowadays"
+    ]
+  },
+  {
+    "phrase": "at no time",
+    "replacements": [
+      "never"
+    ]
+  },
+  {
+    "phrase": "at all times",
+    "replacements": [
+      "always"
+    ]
+  },
+  {
+    "phrase": "in the beginning",
+    "replacements": [
+      "initially",
+      "first"
+    ]
+  },
+  {
+    "phrase": "at the outset",
+    "replacements": [
+      "initially",
+      "first"
+    ]
+  },
+  {
+    "phrase": "in the first place",
+    "replacements": [
+      "first",
+      "initially"
+    ]
+  },
+  {
+    "phrase": "first and foremost",
+    "replacements": [
+      "first"
+    ]
+  },
+  {
+    "phrase": "last but not least",
+    "replacements": [
+      "finally"
+    ]
+  },
+  {
+    "phrase": "in the end",
+    "replacements": [
+      "finally",
+      "ultimately"
+    ]
+  },
+  {
+    "phrase": "at the end of the day",
+    "replacements": [
+      "ultimately",
+      "eventually"
+    ]
+  },
+  {
+    "phrase": "in the final analysis",
+    "replacements": [
+      "ultimately"
+    ]
+  },
+  {
+    "phrase": "on the occasion of",
+    "replacements": [
+      "when",
+      "on"
+    ]
+  },
+  {
+    "phrase": "on the occasion that",
+    "replacements": [
+      "if",
+      "when"
+    ]
+  },
+  {
+    "phrase": "until such time as",
+    "replacements": [
+      "until"
+    ]
+  },
+  {
+    "phrase": "until such time",
+    "replacements": [
+      "until"
+    ]
+  },
+  {
+    "phrase": "at such time as",
+    "replacements": [
+      "when"
+    ]
+  },
+  {
+    "phrase": "at a time when",
+    "replacements": [
+      "when"
+    ]
+  },
+  {
+    "phrase": "point in time",
+    "replacements": [
+      "time",
+      "point"
+    ]
+  },
+  {
+    "phrase": "a large number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a great deal of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a significant number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a considerable number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "an appreciable number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a large proportion of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "an abundance of",
+    "replacements": [
+      "plenty of",
+      "much"
+    ]
+  },
+  {
+    "phrase": "a profusion of",
+    "replacements": [
+      "plenty of",
+      "many"
+    ]
+  },
+  {
+    "phrase": "the vast majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "a majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "the majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "in the majority of cases",
+    "replacements": [
+      "usually",
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "in the majority of instances",
+    "replacements": [
+      "mostly",
+      "most"
+    ]
+  },
+  {
+    "phrase": "in a number of cases",
+    "replacements": [
+      "some"
+    ]
+  },
+  {
+    "phrase": "in many cases",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "in many instances",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "in most cases",
+    "replacements": [
+      "usually",
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "in some cases",
+    "replacements": [
+      "sometimes"
+    ]
+  },
+  {
+    "phrase": "in certain cases",
+    "replacements": [
+      "sometimes"
+    ]
+  },
+  {
+    "phrase": "in all cases",
+    "replacements": [
+      "always"
+    ]
+  },
+  {
+    "phrase": "a small number of",
+    "replacements": [
+      "few"
+    ]
+  },
+  {
+    "phrase": "a sufficient amount of",
+    "replacements": [
+      "enough"
+    ]
+  },
+  {
+    "phrase": "a sufficient number of",
+    "replacements": [
+      "enough"
+    ]
+  },
+  {
+    "phrase": "an adequate number of",
+    "replacements": [
+      "enough"
+    ]
+  },
+  {
+    "phrase": "a number of",
+    "replacements": [
+      "several",
+      "some"
+    ]
+  },
+  {
+    "phrase": "a variety of",
+    "replacements": [
+      "various",
+      "several"
+    ]
+  },
+  {
+    "phrase": "a wide range of",
+    "replacements": [
+      "many",
+      "various"
+    ]
+  },
+  {
+    "phrase": "a wide variety of",
+    "replacements": [
+      "many",
+      "various"
+    ]
+  },
+  {
+    "phrase": "a lot of",
+    "replacements": [
+      "many",
+      "much"
+    ]
+  },
+  {
+    "phrase": "to a certain extent",
+    "replacements": [
+      "somewhat",
+      "partly"
+    ]
+  },
+  {
+    "phrase": "to a certain degree",
+    "replacements": [
+      "somewhat"
+    ]
+  },
+  {
+    "phrase": "to some degree",
+    "replacements": [
+      "somewhat"
+    ]
+  },
+  {
+    "phrase": "to a large extent",
+    "replacements": [
+      "largely",
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "to a great extent",
+    "replacements": [
+      "largely",
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "to a great degree",
+    "replacements": [
+      "largely"
+    ]
+  },
+  {
+    "phrase": "for the most part",
+    "replacements": [
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "by and large",
+    "replacements": [
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "more or less",
+    "replacements": [
+      "roughly",
+      "about"
+    ]
+  },
+  {
+    "phrase": "a period of time",
+    "replacements": [
+      "time"
+    ]
+  },
+  {
+    "phrase": "a certain amount of",
+    "replacements": [
+      "some"
+    ]
+  },
+  {
+    "phrase": "in excess of",
+    "replacements": [
+      "more than",
+      "over"
+    ]
+  },
+  {
+    "phrase": "in the vicinity of",
+    "replacements": [
+      "near"
+    ]
+  },
+  {
+    "phrase": "in close proximity to",
+    "replacements": [
+      "near"
+    ]
+  },
+  {
+    "phrase": "in close proximity",
+    "replacements": [
+      "near"
+    ]
+  },
+  {
+    "phrase": "in the immediate vicinity",
+    "replacements": [
+      "nearby"
+    ]
+  },
+  {
+    "phrase": "in the neighborhood of",
+    "replacements": [
+      "about",
+      "around"
+    ]
+  },
+  {
+    "phrase": "in the region of",
+    "replacements": [
+      "about",
+      "around"
+    ]
+  },
+  {
+    "phrase": "on the order of",
+    "replacements": [
+      "about",
+      "around"
+    ]
+  },
+  {
+    "phrase": "in the area of",
+    "replacements": [
+      "about",
+      "around"
+    ]
+  },
+  {
+    "phrase": "adjacent to",
+    "replacements": [
+      "next to"
+    ]
+  },
+  {
+    "phrase": "in the neighbourhood of",
+    "replacements": [
+      "about",
+      "around"
+    ]
+  },
+  {
+    "phrase": "with regard to",
+    "replacements": [
+      "regarding",
+      "about"
+    ]
+  },
+  {
+    "phrase": "with regards to",
+    "replacements": [
+      "regarding",
+      "about"
+    ]
+  },
+  {
+    "phrase": "with respect to",
+    "replacements": [
+      "regarding",
+      "about"
+    ]
+  },
+  {
+    "phrase": "in regard to",
+    "replacements": [
+      "regarding",
+      "about"
+    ]
+  },
+  {
+    "phrase": "in regards to",
+    "replacements": [
+      "regarding",
+      "about"
+    ]
+  },
+  {
+    "phrase": "in relation to",
+    "replacements": [
+      "regarding",
+      "about"
+    ]
+  },
+  {
+    "phrase": "in reference to",
+    "replacements": [
+      "about",
+      "regarding"
+    ]
+  },
+  {
+    "phrase": "with reference to",
+    "replacements": [
+      "about"
+    ]
+  },
+  {
+    "phrase": "in terms of",
+    "replacements": [
+      "regarding",
+      "as for"
+    ]
+  },
+  {
+    "phrase": "as regards",
+    "replacements": [
+      "about",
+      "regarding"
+    ]
+  },
+  {
+    "phrase": "pertaining to",
+    "replacements": [
+      "about",
+      "regarding"
+    ]
+  },
+  {
+    "phrase": "relating to",
+    "replacements": [
+      "about"
+    ]
+  },
+  {
+    "phrase": "concerning the matter of",
+    "replacements": [
+      "about",
+      "regarding"
+    ]
+  },
+  {
+    "phrase": "in the case of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in the matter of",
+    "replacements": [
+      "about",
+      "regarding"
+    ]
+  },
+  {
+    "phrase": "in respect of",
+    "replacements": [
+      "about",
+      "for"
+    ]
+  },
+  {
+    "phrase": "on the subject of",
+    "replacements": [
+      "about"
+    ]
+  },
+  {
+    "phrase": "relative to",
+    "replacements": [
+      "about"
+    ]
+  },
+  {
+    "phrase": "in connection with",
+    "replacements": [
+      "about",
+      "for"
+    ]
+  },
+  {
+    "phrase": "in conjunction with",
+    "replacements": [
+      "with",
+      "and"
+    ]
+  },
+  {
+    "phrase": "with regard to the fact that",
+    "replacements": [
+      "because"
+    ]
+  },
+  {
+    "phrase": "by means of",
+    "replacements": [
+      "with",
+      "via"
+    ]
+  },
+  {
+    "phrase": "by virtue of",
+    "replacements": [
+      "through",
+      "because of"
+    ]
+  },
+  {
+    "phrase": "in a manner that",
+    "replacements": [
+      "so that"
+    ]
+  },
+  {
+    "phrase": "in such a manner that",
+    "replacements": [
+      "so that"
+    ]
+  },
+  {
+    "phrase": "in such a way that",
+    "replacements": [
+      "so that"
+    ]
+  },
+  {
+    "phrase": "in a way that",
+    "replacements": [
+      "so that"
+    ]
+  },
+  {
+    "phrase": "as a means of",
+    "replacements": [
+      "as",
+      "by"
+    ]
+  },
+  {
+    "phrase": "through the use of",
+    "replacements": [
+      "with",
+      "using"
+    ]
+  },
+  {
+    "phrase": "in accordance with",
+    "replacements": [
+      "per",
+      "according to"
+    ]
+  },
+  {
+    "phrase": "in compliance with",
+    "replacements": [
+      "per",
+      "under"
+    ]
+  },
+  {
+    "phrase": "in conformity with",
+    "replacements": [
+      "with",
+      "per"
+    ]
+  },
+  {
+    "phrase": "pursuant to",
+    "replacements": [
+      "under",
+      "because of"
+    ]
+  },
+  {
+    "phrase": "as prescribed by",
+    "replacements": [
+      "under",
+      "in"
+    ]
+  },
+  {
+    "phrase": "under the provisions of",
+    "replacements": [
+      "under"
+    ]
+  },
+  {
+    "phrase": "set forth in",
+    "replacements": [
+      "in"
+    ]
+  },
+  {
+    "phrase": "set forth",
+    "replacements": [
+      "state",
+      "list"
+    ]
+  },
+  {
+    "phrase": "as per",
+    "replacements": [
+      "per"
+    ]
+  },
+  {
+    "phrase": "on a daily basis",
+    "replacements": [
+      "daily"
+    ]
+  },
+  {
+    "phrase": "on a weekly basis",
+    "replacements": [
+      "weekly"
+    ]
+  },
+  {
+    "phrase": "on a monthly basis",
+    "replacements": [
+      "monthly"
+    ]
+  },
+  {
+    "phrase": "on a yearly basis",
+    "replacements": [
+      "yearly"
+    ]
+  },
+  {
+    "phrase": "on a regular basis",
+    "replacements": [
+      "regularly",
+      "often"
+    ]
+  },
+  {
+    "phrase": "on a frequent basis",
+    "replacements": [
+      "frequently",
+      "often"
+    ]
+  },
+  {
+    "phrase": "on a consistent basis",
+    "replacements": [
+      "consistently"
+    ]
+  },
+  {
+    "phrase": "in a prompt manner",
+    "replacements": [
+      "promptly"
+    ]
+  },
+  {
+    "phrase": "in a timely manner",
+    "replacements": [
+      "promptly",
+      "on time"
+    ]
+  },
+  {
+    "phrase": "in a timely fashion",
+    "replacements": [
+      "promptly",
+      "on time"
+    ]
+  },
+  {
+    "phrase": "in a professional manner",
+    "replacements": [
+      "professionally"
+    ]
+  },
+  {
+    "phrase": "in an efficient manner",
+    "replacements": [
+      "efficiently"
+    ]
+  },
+  {
+    "phrase": "in a similar manner",
+    "replacements": [
+      "similarly"
+    ]
+  },
+  {
+    "phrase": "in like manner",
+    "replacements": [
+      "likewise"
+    ]
+  },
+  {
+    "phrase": "in the form of",
+    "replacements": [
+      "as"
+    ]
+  },
+  {
+    "phrase": "on behalf of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "on behalf",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "as a whole",
+    "replacements": [
+      "overall"
+    ]
+  },
+  {
+    "phrase": "at the hands of",
+    "replacements": [
+      "by"
+    ]
+  },
+  {
+    "phrase": "has the ability to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "have the ability to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "has the capacity to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "have the capacity to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "is able to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "are able to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "is capable of",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "are capable of",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "is in a position to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "is authorized to",
+    "replacements": [
+      "can",
+      "may"
+    ]
+  },
+  {
+    "phrase": "is authorised to",
+    "replacements": [
+      "can",
+      "may"
+    ]
+  },
+  {
+    "phrase": "has the authority to",
+    "replacements": [
+      "can",
+      "may"
+    ]
+  },
+  {
+    "phrase": "is required to",
+    "replacements": [
+      "must",
+      "should"
+    ]
+  },
+  {
+    "phrase": "has a requirement for",
+    "replacements": [
+      "needs",
+      "requires"
+    ]
+  },
+  {
+    "phrase": "is in need of",
+    "replacements": [
+      "needs"
+    ]
+  },
+  {
+    "phrase": "are in need of",
+    "replacements": [
+      "need"
+    ]
+  },
+  {
+    "phrase": "be in need of",
+    "replacements": [
+      "need"
+    ]
+  },
+  {
+    "phrase": "be in possession of",
+    "replacements": [
+      "have"
+    ]
+  },
+  {
+    "phrase": "be in receipt of",
+    "replacements": [
+      "receive",
+      "have"
+    ]
+  },
+  {
+    "phrase": "have knowledge of",
+    "replacements": [
+      "know"
+    ]
+  },
+  {
+    "phrase": "has a tendency to",
+    "replacements": [
+      "tends to"
+    ]
+  },
+  {
+    "phrase": "have a tendency to",
+    "replacements": [
+      "tend to"
+    ]
+  },
+  {
+    "phrase": "make a decision",
+    "replacements": [
+      "decide"
+    ]
+  },
+  {
+    "phrase": "make an attempt",
+    "replacements": [
+      "try"
+    ]
+  },
+  {
+    "phrase": "make an effort",
+    "replacements": [
+      "try"
+    ]
+  },
+  {
+    "phrase": "make arrangements",
+    "replacements": [
+      "arrange"
+    ]
+  },
+  {
+    "phrase": "make contact with",
+    "replacements": [
+      "contact"
+    ]
+  },
+  {
+    "phrase": "make mention of",
+    "replacements": [
+      "mention"
+    ]
+  },
+  {
+    "phrase": "make preparations",
+    "replacements": [
+      "prepare"
+    ]
+  },
+  {
+    "phrase": "make provision for",
+    "replacements": [
+      "provide for"
+    ]
+  },
+  {
+    "phrase": "make reference to",
+    "replacements": [
+      "refer to"
+    ]
+  },
+  {
+    "phrase": "make use of",
+    "replacements": [
+      "use"
+    ]
+  },
+  {
+    "phrase": "make a complaint",
+    "replacements": [
+      "complain"
+    ]
+  },
+  {
+    "phrase": "file a complaint",
+    "replacements": [
+      "complain"
+    ]
+  },
+  {
+    "phrase": "make an application",
+    "replacements": [
+      "apply"
+    ]
+  },
+  {
+    "phrase": "submit an application",
+    "replacements": [
+      "apply"
+    ]
+  },
+  {
+    "phrase": "conduct an investigation",
+    "replacements": [
+      "investigate"
+    ]
+  },
+  {
+    "phrase": "carry out an investigation",
+    "replacements": [
+      "investigate"
+    ]
+  },
+  {
+    "phrase": "perform an analysis",
+    "replacements": [
+      "analyze"
+    ]
+  },
+  {
+    "phrase": "carry out a review",
+    "replacements": [
+      "review"
+    ]
+  },
+  {
+    "phrase": "conduct a review",
+    "replacements": [
+      "review"
+    ]
+  },
+  {
+    "phrase": "undertake an examination",
+    "replacements": [
+      "examine"
+    ]
+  },
+  {
+    "phrase": "offer an explanation",
+    "replacements": [
+      "explain"
+    ]
+  },
+  {
+    "phrase": "provide an explanation",
+    "replacements": [
+      "explain"
+    ]
+  },
+  {
+    "phrase": "give an explanation",
+    "replacements": [
+      "explain"
+    ]
+  },
+  {
+    "phrase": "give an indication",
+    "replacements": [
+      "indicate"
+    ]
+  },
+  {
+    "phrase": "give an indication of",
+    "replacements": [
+      "indicate"
+    ]
+  },
+  {
+    "phrase": "provide assistance",
+    "replacements": [
+      "help"
+    ]
+  },
+  {
+    "phrase": "render assistance",
+    "replacements": [
+      "help"
+    ]
+  },
+  {
+    "phrase": "lend support to",
+    "replacements": [
+      "support"
+    ]
+  },
+  {
+    "phrase": "provide support to",
+    "replacements": [
+      "support"
+    ]
+  },
+  {
+    "phrase": "offer support to",
+    "replacements": [
+      "support"
+    ]
+  },
+  {
+    "phrase": "give approval",
+    "replacements": [
+      "approve"
+    ]
+  },
+  {
+    "phrase": "give permission",
+    "replacements": [
+      "allow"
+    ]
+  },
+  {
+    "phrase": "give notice",
+    "replacements": [
+      "notify"
+    ]
+  },
+  {
+    "phrase": "give rise to",
+    "replacements": [
+      "cause"
+    ]
+  },
+  {
+    "phrase": "give thought to",
+    "replacements": [
+      "consider"
+    ]
+  },
+  {
+    "phrase": "give consideration to",
+    "replacements": [
+      "consider"
+    ]
+  },
+  {
+    "phrase": "take into consideration",
+    "replacements": [
+      "consider"
+    ]
+  },
+  {
+    "phrase": "take into account",
+    "replacements": [
+      "consider"
+    ]
+  },
+  {
+    "phrase": "take into account that",
+    "replacements": [
+      "consider that",
+      "remember that"
+    ]
+  },
+  {
+    "phrase": "take action",
+    "replacements": [
+      "act"
+    ]
+  },
+  {
+    "phrase": "take action on",
+    "replacements": [
+      "act on"
+    ]
+  },
+  {
+    "phrase": "take advantage of",
+    "replacements": [
+      "use"
+    ]
+  },
+  {
+    "phrase": "put an end to",
+    "replacements": [
+      "end"
+    ]
+  },
+  {
+    "phrase": "come to a conclusion",
+    "replacements": [
+      "conclude"
+    ]
+  },
+  {
+    "phrase": "reach a conclusion",
+    "replacements": [
+      "conclude"
+    ]
+  },
+  {
+    "phrase": "come to the conclusion that",
+    "replacements": [
+      "conclude"
+    ]
+  },
+  {
+    "phrase": "come to an agreement",
+    "replacements": [
+      "agree"
+    ]
+  },
+  {
+    "phrase": "enter into an agreement",
+    "replacements": [
+      "agree"
+    ]
+  },
+  {
+    "phrase": "reach an agreement",
+    "replacements": [
+      "agree"
+    ]
+  },
+  {
+    "phrase": "draw attention to",
+    "replacements": [
+      "highlight"
+    ]
+  },
+  {
+    "phrase": "place emphasis on",
+    "replacements": [
+      "stress"
+    ]
+  },
+  {
+    "phrase": "put emphasis on",
+    "replacements": [
+      "stress"
+    ]
+  },
+  {
+    "phrase": "exert an influence on",
+    "replacements": [
+      "influence"
+    ]
+  },
+  {
+    "phrase": "have an influence on",
+    "replacements": [
+      "influence"
+    ]
+  },
+  {
+    "phrase": "have an effect on",
+    "replacements": [
+      "affect"
+    ]
+  },
+  {
+    "phrase": "have an adverse effect on",
+    "replacements": [
+      "hurt"
+    ]
+  },
+  {
+    "phrase": "do damage to",
+    "replacements": [
+      "damage"
+    ]
+  },
+  {
+    "phrase": "do harm to",
+    "replacements": [
+      "harm"
+    ]
+  },
+  {
+    "phrase": "play a role in",
+    "replacements": [
+      "help",
+      "contribute to"
+    ]
+  },
+  {
+    "phrase": "form the basis of",
+    "replacements": [
+      "underlie"
+    ]
+  },
+  {
+    "phrase": "serve the purpose of",
+    "replacements": [
+      "serve as"
+    ]
+  },
+  {
+    "phrase": "raise a question",
+    "replacements": [
+      "question"
+    ]
+  },
+  {
+    "phrase": "pose a question",
+    "replacements": [
+      "ask"
+    ]
+  },
+  {
+    "phrase": "ask a question",
+    "replacements": [
+      "ask"
+    ]
+  },
+  {
+    "phrase": "be responsible for",
+    "replacements": [
+      "cause",
+      "handle"
+    ]
+  },
+  {
+    "phrase": "is responsible for",
+    "replacements": [
+      "handles",
+      "causes"
+    ]
+  },
+  {
+    "phrase": "find it necessary to",
+    "replacements": [
+      "must"
+    ]
+  },
+  {
+    "phrase": "afford an opportunity",
+    "replacements": [
+      "allow",
+      "let"
+    ]
+  },
+  {
+    "phrase": "make sure that",
+    "replacements": [
+      "ensure"
+    ]
+  },
+  {
+    "phrase": "make certain that",
+    "replacements": [
+      "ensure"
+    ]
+  },
+  {
+    "phrase": "see to it that",
+    "replacements": [
+      "ensure"
+    ]
+  },
+  {
+    "phrase": "bear in mind that",
+    "replacements": [
+      "remember that",
+      "note that"
+    ]
+  },
+  {
+    "phrase": "keep in mind that",
+    "replacements": [
+      "remember that",
+      "note that"
+    ]
+  },
+  {
+    "phrase": "there are several",
+    "replacements": [
+      "several"
+    ]
+  },
+  {
+    "phrase": "there are many",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "it is clear that",
+    "replacements": [
+      "clearly"
+    ]
+  },
+  {
+    "phrase": "it is evident that",
+    "replacements": [
+      "clearly"
+    ]
+  },
+  {
+    "phrase": "it is obvious that",
+    "replacements": [
+      "obviously",
+      "clearly"
+    ]
+  },
+  {
+    "phrase": "it is apparent that",
+    "replacements": [
+      "apparently",
+      "clearly"
+    ]
+  },
+  {
+    "phrase": "it is possible that",
+    "replacements": [
+      "maybe",
+      "possibly"
+    ]
+  },
+  {
+    "phrase": "it may be possible that",
+    "replacements": [
+      "maybe",
+      "possibly"
+    ]
+  },
+  {
+    "phrase": "there is a possibility that",
+    "replacements": [
+      "maybe",
+      "possibly"
+    ]
+  },
+  {
+    "phrase": "in all likelihood",
+    "replacements": [
+      "likely",
+      "probably"
+    ]
+  },
+  {
+    "phrase": "in all probability",
+    "replacements": [
+      "probably"
+    ]
+  },
+  {
+    "phrase": "there is no doubt that",
+    "replacements": [
+      "undoubtedly",
+      "certainly"
+    ]
+  },
+  {
+    "phrase": "there is evidence that",
+    "replacements": [
+      "evidence shows"
+    ]
+  },
+  {
+    "phrase": "is of the opinion that",
+    "replacements": [
+      "thinks",
+      "believes"
+    ]
+  },
+  {
+    "phrase": "are of the opinion that",
+    "replacements": [
+      "think",
+      "believe"
+    ]
+  },
+  {
+    "phrase": "am of the opinion that",
+    "replacements": [
+      "think",
+      "believe"
+    ]
+  },
+  {
+    "phrase": "is of the opinion",
+    "replacements": [
+      "thinks"
+    ]
+  },
+  {
+    "phrase": "hold the view that",
+    "replacements": [
+      "believe"
+    ]
+  },
+  {
+    "phrase": "it is important to note that",
+    "replacements": [
+      "note that"
+    ]
+  },
+  {
+    "phrase": "it is worth noting that",
+    "replacements": [
+      "note that"
+    ]
+  },
+  {
+    "phrase": "it is worth mentioning that",
+    "replacements": [
+      "note that"
+    ]
+  },
+  {
+    "phrase": "it is worth mentioning",
+    "replacements": [
+      "mention"
+    ]
+  },
+  {
+    "phrase": "it should be noted that",
+    "replacements": [
+      "note that"
+    ]
+  },
+  {
+    "phrase": "it must be noted that",
+    "replacements": [
+      "note that"
+    ]
+  },
+  {
+    "phrase": "please be advised that",
+    "replacements": [
+      "please note"
+    ]
+  },
+  {
+    "phrase": "please be informed that",
+    "replacements": [
+      "please note"
+    ]
+  },
+  {
+    "phrase": "it goes without saying that",
+    "replacements": [
+      "clearly",
+      "obviously"
+    ]
+  },
+  {
+    "phrase": "needless to say",
+    "replacements": [
+      "obviously",
+      "clearly"
+    ]
+  },
+  {
+    "phrase": "as a matter of fact",
+    "replacements": [
+      "in fact"
+    ]
+  },
+  {
+    "phrase": "in point of fact",
+    "replacements": [
+      "in fact"
+    ]
+  },
+  {
+    "phrase": "the fact of the matter is that",
+    "replacements": [
+      "in fact"
+    ]
+  },
+  {
+    "phrase": "for all intents and purposes",
+    "replacements": [
+      "effectively",
+      "practically"
+    ]
+  },
+  {
+    "phrase": "to all intents and purposes",
+    "replacements": [
+      "effectively",
+      "practically"
+    ]
+  },
+  {
+    "phrase": "all things considered",
+    "replacements": [
+      "overall"
+    ]
+  },
+  {
+    "phrase": "on the whole",
+    "replacements": [
+      "overall",
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "in general",
+    "replacements": [
+      "generally",
+      "overall"
+    ]
+  },
+  {
+    "phrase": "as a general rule",
+    "replacements": [
+      "generally",
+      "usually"
+    ]
+  },
+  {
+    "phrase": "in a nutshell",
+    "replacements": [
+      "briefly",
+      "shortly"
+    ]
+  },
+  {
+    "phrase": "in short",
+    "replacements": [
+      "briefly"
+    ]
+  },
+  {
+    "phrase": "in other words",
+    "replacements": [
+      "i.e.",
+      "that is"
+    ]
+  },
+  {
+    "phrase": "without a doubt",
+    "replacements": [
+      "undoubtedly",
+      "certainly"
+    ]
+  },
+  {
+    "phrase": "there is no question that",
+    "replacements": [
+      "clearly"
+    ]
+  },
+  {
+    "phrase": "each and every",
+    "replacements": [
+      "each",
+      "every"
+    ]
+  },
+  {
+    "phrase": "in and of itself",
+    "replacements": [
+      "itself"
+    ]
+  },
+  {
+    "phrase": "one after the other",
+    "replacements": [
+      "successively"
+    ]
+  },
+  {
+    "phrase": "more and more",
+    "replacements": [
+      "increasingly"
+    ]
+  },
+  {
+    "phrase": "over and above",
+    "replacements": [
+      "besides",
+      "beyond"
+    ]
+  },
+  {
+    "phrase": "over and over",
+    "replacements": [
+      "repeatedly"
+    ]
+  },
+  {
+    "phrase": "again and again",
+    "replacements": [
+      "repeatedly"
+    ]
+  },
+  {
+    "phrase": "now and again",
+    "replacements": [
+      "occasionally"
+    ]
+  },
+  {
+    "phrase": "now and then",
+    "replacements": [
+      "occasionally"
+    ]
+  },
+  {
+    "phrase": "every now and then",
+    "replacements": [
+      "occasionally"
+    ]
+  },
+  {
+    "phrase": "from time to time",
+    "replacements": [
+      "occasionally"
+    ]
+  },
+  {
+    "phrase": "on occasion",
+    "replacements": [
+      "occasionally"
+    ]
+  },
+  {
+    "phrase": "at times",
+    "replacements": [
+      "sometimes"
+    ]
+  },
+  {
+    "phrase": "all of a sudden",
+    "replacements": [
+      "suddenly"
+    ]
+  },
+  {
+    "phrase": "along the lines of",
+    "replacements": [
+      "like"
+    ]
+  },
+  {
+    "phrase": "end result",
+    "replacements": [
+      "result"
+    ]
+  },
+  {
+    "phrase": "final result",
+    "replacements": [
+      "result"
+    ]
+  },
+  {
+    "phrase": "final outcome",
+    "replacements": [
+      "outcome"
+    ]
+  },
+  {
+    "phrase": "past history",
+    "replacements": [
+      "history"
+    ]
+  },
+  {
+    "phrase": "past record",
+    "replacements": [
+      "record"
+    ]
+  },
+  {
+    "phrase": "future plans",
+    "replacements": [
+      "plans"
+    ]
+  },
+  {
+    "phrase": "advance planning",
+    "replacements": [
+      "planning"
+    ]
+  },
+  {
+    "phrase": "advance notice",
+    "replacements": [
+      "notice"
+    ]
+  },
+  {
+    "phrase": "advance warning",
+    "replacements": [
+      "warning"
+    ]
+  },
+  {
+    "phrase": "advance reservations",
+    "replacements": [
+      "reservations"
+    ]
+  },
+  {
+    "phrase": "added bonus",
+    "replacements": [
+      "bonus"
+    ]
+  },
+  {
+    "phrase": "additional bonus",
+    "replacements": [
+      "bonus"
+    ]
+  },
+  {
+    "phrase": "free gift",
+    "replacements": [
+      "gift"
+    ]
+  },
+  {
+    "phrase": "general consensus",
+    "replacements": [
+      "consensus"
+    ]
+  },
+  {
+    "phrase": "consensus of opinion",
+    "replacements": [
+      "consensus"
+    ]
+  },
+  {
+    "phrase": "true facts",
+    "replacements": [
+      "facts"
+    ]
+  },
+  {
+    "phrase": "actual facts",
+    "replacements": [
+      "facts"
+    ]
+  },
+  {
+    "phrase": "basic fundamentals",
+    "replacements": [
+      "fundamentals"
+    ]
+  },
+  {
+    "phrase": "basic essentials",
+    "replacements": [
+      "essentials"
+    ]
+  },
+  {
+    "phrase": "important essentials",
+    "replacements": [
+      "essentials"
+    ]
+  },
+  {
+    "phrase": "necessary essentials",
+    "replacements": [
+      "essentials"
+    ]
+  },
+  {
+    "phrase": "completely finish",
+    "replacements": [
+      "finish"
+    ]
+  },
+  {
+    "phrase": "completely unique",
+    "replacements": [
+      "unique"
+    ]
+  },
+  {
+    "phrase": "totally unique",
+    "replacements": [
+      "unique"
+    ]
+  },
+  {
+    "phrase": "very unique",
+    "replacements": [
+      "unique"
+    ]
+  },
+  {
+    "phrase": "absolutely essential",
+    "replacements": [
+      "essential"
+    ]
+  },
+  {
+    "phrase": "absolutely necessary",
+    "replacements": [
+      "necessary"
+    ]
+  },
+  {
+    "phrase": "unexpected surprise",
+    "replacements": [
+      "surprise"
+    ]
+  },
+  {
+    "phrase": "terrible tragedy",
+    "replacements": [
+      "tragedy"
+    ]
+  },
+  {
+    "phrase": "sudden crisis",
+    "replacements": [
+      "crisis"
+    ]
+  },
+  {
+    "phrase": "various differences",
+    "replacements": [
+      "differences"
+    ]
+  },
+  {
+    "phrase": "personal friend",
+    "replacements": [
+      "friend"
+    ]
+  },
+  {
+    "phrase": "mutual cooperation",
+    "replacements": [
+      "cooperation"
+    ]
+  },
+  {
+    "phrase": "collaborate together",
+    "replacements": [
+      "collaborate"
+    ]
+  },
+  {
+    "phrase": "cooperate together",
+    "replacements": [
+      "cooperate"
+    ]
+  },
+  {
+    "phrase": "meet together",
+    "replacements": [
+      "meet"
+    ]
+  },
+  {
+    "phrase": "merge together",
+    "replacements": [
+      "merge"
+    ]
+  },
+  {
+    "phrase": "combine together",
+    "replacements": [
+      "combine"
+    ]
+  },
+  {
+    "phrase": "continue on",
+    "replacements": [
+      "continue"
+    ]
+  },
+  {
+    "phrase": "start over again",
+    "replacements": [
+      "restart"
+    ]
+  },
+  {
+    "phrase": "repeat again",
+    "replacements": [
+      "repeat"
+    ]
+  },
+  {
+    "phrase": "refer back",
+    "replacements": [
+      "refer"
+    ]
+  },
+  {
+    "phrase": "revert back",
+    "replacements": [
+      "revert"
+    ]
+  },
+  {
+    "phrase": "return back",
+    "replacements": [
+      "return"
+    ]
+  },
+  {
+    "phrase": "reply back",
+    "replacements": [
+      "reply"
+    ]
+  },
+  {
+    "phrase": "respond back",
+    "replacements": [
+      "respond"
+    ]
+  },
+  {
+    "phrase": "circulate around",
+    "replacements": [
+      "circulate"
+    ]
+  },
+  {
+    "phrase": "sum total",
+    "replacements": [
+      "total"
+    ]
+  },
+  {
+    "phrase": "brief moment",
+    "replacements": [
+      "moment"
+    ]
+  },
+  {
+    "phrase": "true and accurate",
+    "replacements": [
+      "accurate"
+    ]
+  },
+  {
+    "phrase": "full and complete",
+    "replacements": [
+      "complete"
+    ]
+  },
+  {
+    "phrase": "whole entire",
+    "replacements": [
+      "entire"
+    ]
+  },
+  {
+    "phrase": "always and forever",
+    "replacements": [
+      "forever"
+    ]
+  },
+  {
+    "phrase": "plan ahead",
+    "replacements": [
+      "plan"
+    ]
+  },
+  {
+    "phrase": "possibly might",
+    "replacements": [
+      "might"
+    ]
+  },
+  {
+    "phrase": "postpone until later",
+    "replacements": [
+      "postpone"
+    ]
+  },
+  {
+    "phrase": "delay until later",
+    "replacements": [
+      "delay"
+    ]
+  },
+  {
+    "phrase": "new innovation",
+    "replacements": [
+      "innovation"
+    ]
+  },
+  {
+    "phrase": "gather together",
+    "replacements": [
+      "gather"
+    ]
+  },
+  {
+    "phrase": "rise up",
+    "replacements": [
+      "rise"
+    ]
+  },
+  {
+    "phrase": "fall down",
+    "replacements": [
+      "fall"
+    ]
+  },
+  {
+    "phrase": "lift up",
+    "replacements": [
+      "lift"
+    ]
+  },
+  {
+    "phrase": "raise up",
+    "replacements": [
+      "raise"
+    ]
+  },
+  {
+    "phrase": "open up",
+    "replacements": [
+      "open"
+    ]
+  },
+  {
+    "phrase": "finish up",
+    "replacements": [
+      "finish"
+    ]
+  },
+  {
+    "phrase": "start up",
+    "replacements": [
+      "start"
+    ]
+  },
+  {
+    "phrase": "hurry up",
+    "replacements": [
+      "hurry"
+    ]
+  },
+  {
+    "phrase": "divide up",
+    "replacements": [
+      "divide"
+    ]
+  },
+  {
+    "phrase": "split up",
+    "replacements": [
+      "split"
+    ]
+  },
+  {
+    "phrase": "join together",
+    "replacements": [
+      "join"
+    ]
+  },
+  {
+    "phrase": "link together",
+    "replacements": [
+      "link"
+    ]
+  },
+  {
+    "phrase": "cancel out",
+    "replacements": [
+      "cancel"
+    ]
+  },
+  {
+    "phrase": "first ever",
+    "replacements": [
+      "first"
+    ]
+  },
+  {
+    "phrase": "exact same",
+    "replacements": [
+      "same"
+    ]
+  },
+  {
+    "phrase": "whether or not",
+    "replacements": [
+      "whether"
+    ]
+  },
+  {
+    "phrase": "time period",
+    "replacements": [
+      "period",
+      "time"
+    ]
+  },
+  {
+    "phrase": "the fact that",
+    "replacements": [
+      "that"
+    ]
+  },
+  {
+    "phrase": "as per your request",
+    "replacements": [
+      "as requested"
+    ]
+  },
+  {
+    "phrase": "as per our conversation",
+    "replacements": [
+      "as discussed"
+    ]
+  },
+  {
+    "phrase": "at your earliest convenience",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "would like to point out that",
+    "replacements": [
+      "note that"
+    ]
+  },
+  {
+    "phrase": "i am of the opinion that",
+    "replacements": [
+      "i think"
+    ]
+  },
+  {
+    "phrase": "the aforementioned",
+    "replacements": [
+      "that",
+      "this"
+    ]
+  },
+  {
+    "phrase": "with the minimum of delay",
+    "replacements": [
+      "quickly"
+    ]
+  },
+  {
+    "phrase": "without delay",
+    "replacements": [
+      "immediately"
+    ]
+  },
+  {
+    "phrase": "utilize",
+    "replacements": [
+      "use"
+    ]
+  },
+  {
+    "phrase": "utilise",
+    "replacements": [
+      "use"
+    ]
+  },
+  {
+    "phrase": "utilization",
+    "replacements": [
+      "use"
+    ]
+  },
+  {
+    "phrase": "purchase",
+    "replacements": [
+      "buy"
+    ]
+  },
+  {
+    "phrase": "assistance",
+    "replacements": [
+      "help"
+    ]
+  },
+  {
+    "phrase": "assist",
+    "replacements": [
+      "help"
+    ]
+  },
+  {
+    "phrase": "require",
+    "replacements": [
+      "need"
+    ]
+  },
+  {
+    "phrase": "requires",
+    "replacements": [
+      "needs"
+    ]
+  },
+  {
+    "phrase": "obtain",
+    "replacements": [
+      "get"
+    ]
+  },
+  {
+    "phrase": "acquire",
+    "replacements": [
+      "get",
+      "buy"
+    ]
+  },
+  {
+    "phrase": "commence",
+    "replacements": [
+      "begin",
+      "start"
+    ]
+  },
+  {
+    "phrase": "initiate",
+    "replacements": [
+      "begin",
+      "start"
+    ]
+  },
+  {
+    "phrase": "terminate",
+    "replacements": [
+      "end",
+      "stop"
+    ]
+  },
+  {
+    "phrase": "transmit",
+    "replacements": [
+      "send"
+    ]
+  },
+  {
+    "phrase": "constitute",
+    "replacements": [
+      "form"
+    ]
+  },
+  {
+    "phrase": "inform",
+    "replacements": [
+      "tell"
+    ]
+  },
+  {
+    "phrase": "notify",
+    "replacements": [
+      "tell"
+    ]
+  },
+  {
+    "phrase": "advise",
+    "replacements": [
+      "tell"
+    ]
+  },
+  {
+    "phrase": "indicate",
+    "replacements": [
+      "show"
+    ]
+  },
+  {
+    "phrase": "sufficient",
+    "replacements": [
+      "enough"
+    ]
+  },
+  {
+    "phrase": "numerous",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "additional",
+    "replacements": [
+      "extra",
+      "more"
+    ]
+  },
+  {
+    "phrase": "approximately",
+    "replacements": [
+      "about",
+      "roughly"
+    ]
+  },
+  {
+    "phrase": "subsequent",
+    "replacements": [
+      "later",
+      "following"
+    ]
+  },
+  {
+    "phrase": "subsequently",
+    "replacements": [
+      "later",
+      "then"
+    ]
+  },
+  {
+    "phrase": "nevertheless",
+    "replacements": [
+      "but",
+      "however"
+    ]
+  },
+  {
+    "phrase": "nonetheless",
+    "replacements": [
+      "but",
+      "however"
+    ]
+  },
+  {
+    "phrase": "moreover",
+    "replacements": [
+      "and",
+      "also"
+    ]
+  },
+  {
+    "phrase": "furthermore",
+    "replacements": [
+      "also",
+      "and"
+    ]
+  },
+  {
+    "phrase": "additionally",
+    "replacements": [
+      "also",
+      "too"
+    ]
+  },
+  {
+    "phrase": "consequently",
+    "replacements": [
+      "so",
+      "therefore"
+    ]
+  },
+  {
+    "phrase": "accordingly",
+    "replacements": [
+      "so"
+    ]
+  },
+  {
+    "phrase": "therefore",
+    "replacements": [
+      "so"
+    ]
+  },
+  {
+    "phrase": "thus",
+    "replacements": [
+      "so"
+    ]
+  },
+  {
+    "phrase": "hence",
+    "replacements": [
+      "so"
+    ]
+  },
+  {
+    "phrase": "notwithstanding",
+    "replacements": [
+      "despite",
+      "still"
+    ]
+  },
+  {
+    "phrase": "concerning",
+    "replacements": [
+      "about"
+    ]
+  },
+  {
+    "phrase": "perform",
+    "replacements": [
+      "do"
+    ]
+  },
+  {
+    "phrase": "implement",
+    "replacements": [
+      "apply",
+      "do"
+    ]
+  },
+  {
+    "phrase": "facilitate",
+    "replacements": [
+      "help",
+      "ease"
+    ]
+  },
+  {
+    "phrase": "optimum",
+    "replacements": [
+      "best"
+    ]
+  },
+  {
+    "phrase": "optimal",
+    "replacements": [
+      "best"
+    ]
+  },
+  {
+    "phrase": "substantial",
+    "replacements": [
+      "large"
+    ]
+  },
+  {
+    "phrase": "extremely",
+    "replacements": [
+      "very"
+    ]
+  },
+  {
+    "phrase": "exceedingly",
+    "replacements": [
+      "very"
+    ]
+  },
+  {
+    "phrase": "incredibly",
+    "replacements": [
+      "very"
+    ]
+  },
+  {
+    "phrase": "tremendously",
+    "replacements": [
+      "very"
+    ]
+  },
+  {
+    "phrase": "frequently",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "occasionally",
+    "replacements": [
+      "sometimes"
+    ]
+  },
+  {
+    "phrase": "currently",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at present",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "forthwith",
+    "replacements": [
+      "now",
+      "immediately"
+    ]
+  },
+  {
+    "phrase": "expeditiously",
+    "replacements": [
+      "quickly",
+      "promptly"
+    ]
+  },
+  {
+    "phrase": "prohibit",
+    "replacements": [
+      "ban",
+      "stop"
+    ]
+  },
+  {
+    "phrase": "reimburse",
+    "replacements": [
+      "repay"
+    ]
+  },
+  {
+    "phrase": "remuneration",
+    "replacements": [
+      "pay",
+      "salary"
+    ]
+  },
+  {
+    "phrase": "in anticipation of",
+    "replacements": [
+      "before"
+    ]
+  },
+  {
+    "phrase": "owing to",
+    "replacements": [
+      "since",
+      "due to"
+    ]
+  },
+  {
+    "phrase": "inasmuch as",
+    "replacements": [
+      "since",
+      "because"
+    ]
+  },
+  {
+    "phrase": "on the basis of",
+    "replacements": [
+      "by",
+      "based on"
+    ]
+  },
+  {
+    "phrase": "on the basis that",
+    "replacements": [
+      "because"
+    ]
+  },
+  {
+    "phrase": "due to the fact of",
+    "replacements": [
+      "because of"
+    ]
+  },
+  {
+    "phrase": "as an outcome of",
+    "replacements": [
+      "due to",
+      "because of"
+    ]
+  },
+  {
+    "phrase": "at the same time as",
+    "replacements": [
+      "as",
+      "when"
+    ]
+  },
+  {
+    "phrase": "simultaneously with",
+    "replacements": [
+      "as"
+    ]
+  },
+  {
+    "phrase": "following on",
+    "replacements": [
+      "after"
+    ]
+  },
+  {
+    "phrase": "at that point in time",
+    "replacements": [
+      "then"
+    ]
+  },
+  {
+    "phrase": "at that time",
+    "replacements": [
+      "then"
+    ]
+  },
+  {
+    "phrase": "at that point",
+    "replacements": [
+      "then"
+    ]
+  },
+  {
+    "phrase": "at this point",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at this time",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "in the present case",
+    "replacements": [
+      "here"
+    ]
+  },
+  {
+    "phrase": "in the instant case",
+    "replacements": [
+      "here"
+    ]
+  },
+  {
+    "phrase": "at a later date",
+    "replacements": [
+      "later"
+    ]
+  },
+  {
+    "phrase": "at a later time",
+    "replacements": [
+      "later"
+    ]
+  },
+  {
+    "phrase": "at an earlier time",
+    "replacements": [
+      "earlier"
+    ]
+  },
+  {
+    "phrase": "at the current time",
+    "replacements": [
+      "now",
+      "currently"
+    ]
+  },
+  {
+    "phrase": "at the current moment",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "as of the date of",
+    "replacements": [
+      "from"
+    ]
+  },
+  {
+    "phrase": "with effect from",
+    "replacements": [
+      "from"
+    ]
+  },
+  {
+    "phrase": "during which time",
+    "replacements": [
+      "while"
+    ]
+  },
+  {
+    "phrase": "on the point of",
+    "replacements": [
+      "about to"
+    ]
+  },
+  {
+    "phrase": "on the verge of",
+    "replacements": [
+      "about to"
+    ]
+  },
+  {
+    "phrase": "over the course of",
+    "replacements": [
+      "over",
+      "during"
+    ]
+  },
+  {
+    "phrase": "throughout the course of",
+    "replacements": [
+      "throughout"
+    ]
+  },
+  {
+    "phrase": "in the first instance",
+    "replacements": [
+      "first"
+    ]
+  },
+  {
+    "phrase": "in the initial stages",
+    "replacements": [
+      "initially"
+    ]
+  },
+  {
+    "phrase": "up until the time that",
+    "replacements": [
+      "until"
+    ]
+  },
+  {
+    "phrase": "until such a time as",
+    "replacements": [
+      "until"
+    ]
+  },
+  {
+    "phrase": "at some point in time",
+    "replacements": [
+      "sometime"
+    ]
+  },
+  {
+    "phrase": "at some point",
+    "replacements": [
+      "sometime"
+    ]
+  },
+  {
+    "phrase": "at any point in time",
+    "replacements": [
+      "anytime"
+    ]
+  },
+  {
+    "phrase": "at the moment in time",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at the present moment in time",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "in the days ahead",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the weeks ahead",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the months ahead",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the near term",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "before too long",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "before long",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in a little while",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in a short while",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in no time",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "very soon",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "pretty soon",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the days to come",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the weeks to come",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the months to come",
+    "replacements": [
+      "soon"
+    ]
+  },
+  {
+    "phrase": "in the years to come",
+    "replacements": [
+      "later"
+    ]
+  },
+  {
+    "phrase": "in the fullness of time",
+    "replacements": [
+      "eventually"
+    ]
+  },
+  {
+    "phrase": "in the course of time",
+    "replacements": [
+      "eventually"
+    ]
+  },
+  {
+    "phrase": "with the passage of time",
+    "replacements": [
+      "over time"
+    ]
+  },
+  {
+    "phrase": "with the passing of time",
+    "replacements": [
+      "over time"
+    ]
+  },
+  {
+    "phrase": "at the minute",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "right now",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "these days",
+    "replacements": [
+      "today"
+    ]
+  },
+  {
+    "phrase": "nowadays",
+    "replacements": [
+      "today"
+    ]
+  },
+  {
+    "phrase": "in the present age",
+    "replacements": [
+      "today"
+    ]
+  },
+  {
+    "phrase": "in the modern age",
+    "replacements": [
+      "today"
+    ]
+  },
+  {
+    "phrase": "in modern times",
+    "replacements": [
+      "now",
+      "today"
+    ]
+  },
+  {
+    "phrase": "in the future",
+    "replacements": [
+      "soon",
+      "later"
+    ]
+  },
+  {
+    "phrase": "at some future time",
+    "replacements": [
+      "later"
+    ]
+  },
+  {
+    "phrase": "at a future time",
+    "replacements": [
+      "later"
+    ]
+  },
+  {
+    "phrase": "from this point forward",
+    "replacements": [
+      "now",
+      "henceforth"
+    ]
+  },
+  {
+    "phrase": "from this point onward",
+    "replacements": [
+      "now",
+      "henceforth"
+    ]
+  },
+  {
+    "phrase": "in the early morning",
+    "replacements": [
+      "early"
+    ]
+  },
+  {
+    "phrase": "at the present stage",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at the present juncture",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at the current stage",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "at the current juncture",
+    "replacements": [
+      "now"
+    ]
+  },
+  {
+    "phrase": "a small minority of",
+    "replacements": [
+      "few"
+    ]
+  },
+  {
+    "phrase": "a tiny minority of",
+    "replacements": [
+      "few"
+    ]
+  },
+  {
+    "phrase": "a percentage of",
+    "replacements": [
+      "some"
+    ]
+  },
+  {
+    "phrase": "in the amount of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "a large part of",
+    "replacements": [
+      "much of"
+    ]
+  },
+  {
+    "phrase": "a good deal of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a fair amount of",
+    "replacements": [
+      "some"
+    ]
+  },
+  {
+    "phrase": "a huge amount of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a great amount of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a considerable amount of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a significant amount of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a large amount of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "an enormous amount of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a substantial amount of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a great quantity of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a large quantity of",
+    "replacements": [
+      "much"
+    ]
+  },
+  {
+    "phrase": "a great many",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a good many",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a great many of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a good many of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a good number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a great number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a huge number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a vast number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "an enormous number of",
+    "replacements": [
+      "many"
+    ]
+  },
+  {
+    "phrase": "a greater number of",
+    "replacements": [
+      "more"
+    ]
+  },
+  {
+    "phrase": "a smaller number of",
+    "replacements": [
+      "fewer"
+    ]
+  },
+  {
+    "phrase": "a larger number of",
+    "replacements": [
+      "more"
+    ]
+  },
+  {
+    "phrase": "the majority of the time",
+    "replacements": [
+      "usually"
+    ]
+  },
+  {
+    "phrase": "in a majority of cases",
+    "replacements": [
+      "usually"
+    ]
+  },
+  {
+    "phrase": "in a majority of instances",
+    "replacements": [
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "in the vast majority of instances",
+    "replacements": [
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "in the vast majority of cases",
+    "replacements": [
+      "mostly"
+    ]
+  },
+  {
+    "phrase": "the large majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "the great majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "an overwhelming majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "a large majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "a considerable majority of",
+    "replacements": [
+      "most"
+    ]
+  },
+  {
+    "phrase": "most of the time",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "in most instances",
+    "replacements": [
+      "usually"
+    ]
+  },
+  {
+    "phrase": "in some instances",
+    "replacements": [
+      "sometimes"
+    ]
+  },
+  {
+    "phrase": "in certain instances",
+    "replacements": [
+      "sometimes"
+    ]
+  },
+  {
+    "phrase": "in some situations",
+    "replacements": [
+      "sometimes"
+    ]
+  },
+  {
+    "phrase": "in almost all cases",
+    "replacements": [
+      "almost always"
+    ]
+  },
+  {
+    "phrase": "in nearly all cases",
+    "replacements": [
+      "almost always"
+    ]
+  },
+  {
+    "phrase": "in a great many cases",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "in the overwhelming majority of cases",
+    "replacements": [
+      "almost always"
+    ]
+  },
+  {
+    "phrase": "on numerous occasions",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "on many occasions",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "more often than not",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "as often as not",
+    "replacements": [
+      "often"
+    ]
+  },
+  {
+    "phrase": "few in number",
+    "replacements": [
+      "few"
+    ]
+  },
+  {
+    "phrase": "small in size",
+    "replacements": [
+      "small"
+    ]
+  },
+  {
+    "phrase": "large in size",
+    "replacements": [
+      "large"
+    ]
+  },
+  {
+    "phrase": "red in color",
+    "replacements": [
+      "red"
+    ]
+  },
+  {
+    "phrase": "round in shape",
+    "replacements": [
+      "round"
+    ]
+  },
+  {
+    "phrase": "in large part",
+    "replacements": [
+      "largely"
+    ]
+  },
+  {
+    "phrase": "in small part",
+    "replacements": [
+      "partly"
+    ]
+  },
+  {
+    "phrase": "to a large degree",
+    "replacements": [
+      "largely"
+    ]
+  },
+  {
+    "phrase": "to a considerable extent",
+    "replacements": [
+      "considerably"
+    ]
+  },
+  {
+    "phrase": "a short period of time",
+    "replacements": [
+      "briefly",
+      "shortly"
+    ]
+  },
+  {
+    "phrase": "a long period of time",
+    "replacements": [
+      "a long time"
+    ]
+  },
+  {
+    "phrase": "an extended period of time",
+    "replacements": [
+      "a long time"
+    ]
+  },
+  {
+    "phrase": "a considerable period of time",
+    "replacements": [
+      "a long time"
+    ]
+  },
+  {
+    "phrase": "for a considerable amount of time",
+    "replacements": [
+      "for a long time"
+    ]
+  },
+  {
+    "phrase": "in the interim period",
+    "replacements": [
+      "meanwhile"
+    ]
+  },
+  {
+    "phrase": "in the case that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "in cases where",
+    "replacements": [
+      "when"
+    ]
+  },
+  {
+    "phrase": "in the circumstance that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "in circumstances where",
+    "replacements": [
+      "when"
+    ]
+  },
+  {
+    "phrase": "under circumstances in which",
+    "replacements": [
+      "if",
+      "when"
+    ]
+  },
+  {
+    "phrase": "in a situation in which",
+    "replacements": [
+      "when"
+    ]
+  },
+  {
+    "phrase": "if it should happen that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "if it should transpire that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "if it so happens that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "on the off chance that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "on condition that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "assuming that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "in the unlikely event that",
+    "replacements": [
+      "if"
+    ]
+  },
+  {
+    "phrase": "in respect to",
+    "replacements": [
+      "about",
+      "regarding"
+    ]
+  },
+  {
+    "phrase": "according to",
+    "replacements": [
+      "per"
+    ]
+  },
+  {
+    "phrase": "regarding the matter of",
+    "replacements": [
+      "about"
+    ]
+  },
+  {
+    "phrase": "with regard to the matter of",
+    "replacements": [
+      "about"
+    ]
+  },
+  {
+    "phrase": "with the aid of",
+    "replacements": [
+      "with",
+      "using"
+    ]
+  },
+  {
+    "phrase": "with the help of",
+    "replacements": [
+      "with",
+      "using"
+    ]
+  },
+  {
+    "phrase": "by the use of",
+    "replacements": [
+      "using"
+    ]
+  },
+  {
+    "phrase": "in such a fashion that",
+    "replacements": [
+      "so that"
+    ]
+  },
+  {
+    "phrase": "in a manner such that",
+    "replacements": [
+      "so that"
+    ]
+  },
+  {
+    "phrase": "in a way such that",
+    "replacements": [
+      "so that"
+    ]
+  },
+  {
+    "phrase": "in spite of",
+    "replacements": [
+      "despite"
+    ]
+  },
+  {
+    "phrase": "in contrast to",
+    "replacements": [
+      "unlike"
+    ]
+  },
+  {
+    "phrase": "in contrast with",
+    "replacements": [
+      "unlike"
+    ]
+  },
+  {
+    "phrase": "as opposed to",
+    "replacements": [
+      "instead of"
+    ]
+  },
+  {
+    "phrase": "as distinct from",
+    "replacements": [
+      "unlike"
+    ]
+  },
+  {
+    "phrase": "in contradistinction to",
+    "replacements": [
+      "unlike"
+    ]
+  },
+  {
+    "phrase": "whereas",
+    "replacements": [
+      "but"
+    ]
+  },
+  {
+    "phrase": "even though",
+    "replacements": [
+      "though",
+      "although"
+    ]
+  },
+  {
+    "phrase": "despite the fact",
+    "replacements": [
+      "though",
+      "although"
+    ]
+  },
+  {
+    "phrase": "notwithstanding the fact",
+    "replacements": [
+      "though",
+      "although"
+    ]
+  },
+  {
+    "phrase": "in the face of",
+    "replacements": [
+      "despite",
+      "against"
+    ]
+  },
+  {
+    "phrase": "in defiance of",
+    "replacements": [
+      "against"
+    ]
+  },
+  {
+    "phrase": "in opposition to",
+    "replacements": [
+      "against"
+    ]
+  },
+  {
+    "phrase": "has the opportunity to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "have the opportunity to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "has the power to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "have the power to",
+    "replacements": [
+      "can"
+    ]
+  },
+  {
+    "phrase": "is in possession of",
+    "replacements": [
+      "has"
+    ]
+  },
+  {
+    "phrase": "are in possession of",
+    "replacements": [
+      "have"
+    ]
+  },
+  {
+    "phrase": "is the owner of",
+    "replacements": [
+      "owns"
+    ]
+  },
+  {
+    "phrase": "has a need for",
+    "replacements": [
+      "needs"
+    ]
+  },
+  {
+    "phrase": "have a need for",
+    "replacements": [
+      "need"
+    ]
+  },
+  {
+    "phrase": "endeavor to",
+    "replacements": [
+      "try to"
+    ]
+  },
+  {
+    "phrase": "endeavour to",
+    "replacements": [
+      "try to"
+    ]
+  },
+  {
+    "phrase": "came to the realization that",
+    "replacements": [
+      "realized"
+    ]
+  },
+  {
+    "phrase": "came to the realization",
+    "replacements": [
+      "realized"
+    ]
+  },
+  {
+    "phrase": "it is a known fact that",
+    "replacements": [
+      "it is known"
+    ]
+  },
+  {
+    "phrase": "it is our belief that",
+    "replacements": [
+      "we believe"
+    ]
+  },
+  {
+    "phrase": "it is my belief that",
+    "replacements": [
+      "i believe"
+    ]
+  },
+  {
+    "phrase": "it is our view that",
+    "replacements": [
+      "we think"
+    ]
+  },
+  {
+    "phrase": "it is my view that",
+    "replacements": [
+      "i think"
+    ]
+  },
+  {
+    "phrase": "it is my opinion that",
+    "replacements": [
+      "i think"
+    ]
+  },
+  {
+    "phrase": "i would like to",
+    "replacements": [
+      "i want to"
+    ]
+  },
+  {
+    "phrase": "i would like to take this opportunity to",
+    "replacements": [
+      "let me"
+    ]
+  },
+  {
+    "phrase": "i would like to thank you for",
+    "replacements": [
+      "thanks for"
+    ]
+  },
+  {
+    "phrase": "i would like to apologize for",
+    "replacements": [
+      "sorry for"
+    ]
+  },
+  {
+    "phrase": "i would like to inform you that",
+    "replacements": [
+      "please note"
+    ]
+  },
+  {
+    "phrase": "please find attached",
+    "replacements": [
+      "attached is"
+    ]
+  },
+  {
+    "phrase": "please find enclosed",
+    "replacements": [
+      "enclosed is"
+    ]
+  },
+  {
+    "phrase": "attached please find",
+    "replacements": [
+      "attached is"
+    ]
+  },
+  {
+    "phrase": "for your information",
+    "replacements": [
+      "fyi"
+    ]
+  },
+  {
+    "phrase": "for your reference",
+    "replacements": [
+      "fyi"
+    ]
+  },
+  {
+    "phrase": "you are aware that",
+    "replacements": [
+      "you know that"
+    ]
+  },
+  {
+    "phrase": "we are aware that",
+    "replacements": [
+      "we know that"
+    ]
+  },
+  {
+    "phrase": "i am aware that",
+    "replacements": [
+      "i know that"
+    ]
+  },
+  {
+    "phrase": "be aware that",
+    "replacements": [
+      "know that"
+    ]
+  },
+  {
+    "phrase": "please be aware that",
+    "replacements": [
+      "please note"
+    ]
+  },
+  {
+    "phrase": "in addition to",
+    "replacements": [
+      "plus",
+      "besides"
+    ]
+  },
+  {
+    "phrase": "in addition",
+    "replacements": [
+      "also"
+    ]
+  },
+  {
+    "phrase": "as well as",
+    "replacements": [
+      "and",
+      "plus"
+    ]
+  },
+  {
+    "phrase": "as well",
+    "replacements": [
+      "too"
+    ]
+  },
+  {
+    "phrase": "along with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "together with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in combination with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in association with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in partnership with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in collaboration with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in cooperation with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in coordination with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in tandem with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "in accord with",
+    "replacements": [
+      "with"
+    ]
+  },
+  {
+    "phrase": "not to mention",
+    "replacements": [
+      "plus",
+      "besides"
+    ]
+  },
+  {
+    "phrase": "to say nothing of",
+    "replacements": [
+      "besides"
+    ]
+  },
+  {
+    "phrase": "near to",
+    "replacements": [
+      "near"
+    ]
+  },
+  {
+    "phrase": "next door to",
+    "replacements": [
+      "next to"
+    ]
+  },
+  {
+    "phrase": "in the wake of",
+    "replacements": [
+      "after"
+    ]
+  },
+  {
+    "phrase": "in the aftermath of",
+    "replacements": [
+      "after"
+    ]
+  },
+  {
+    "phrase": "on the heels of",
+    "replacements": [
+      "after"
+    ]
+  },
+  {
+    "phrase": "following on from",
+    "replacements": [
+      "after"
+    ]
+  },
+  {
+    "phrase": "in the run-up to",
+    "replacements": [
+      "before"
+    ]
+  },
+  {
+    "phrase": "in the lead-up to",
+    "replacements": [
+      "before"
+    ]
+  },
+  {
+    "phrase": "in advance of",
+    "replacements": [
+      "before"
+    ]
+  },
+  {
+    "phrase": "ahead of schedule",
+    "replacements": [
+      "early"
+    ]
+  },
+  {
+    "phrase": "behind schedule",
+    "replacements": [
+      "late"
+    ]
+  },
+  {
+    "phrase": "on schedule",
+    "replacements": [
+      "on time"
+    ]
+  },
+  {
+    "phrase": "ahead of time",
+    "replacements": [
+      "early"
+    ]
+  },
+  {
+    "phrase": "under the aegis of",
+    "replacements": [
+      "under"
+    ]
+  },
+  {
+    "phrase": "under the auspices of",
+    "replacements": [
+      "under"
+    ]
+  },
+  {
+    "phrase": "for the benefit of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in the interest of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in the interests of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in support of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in favor of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in favour of",
+    "replacements": [
+      "for"
+    ]
+  },
+  {
+    "phrase": "in search of",
+    "replacements": [
+      "seeking"
+    ]
+  },
+  {
+    "phrase": "in quest of",
+    "replacements": [
+      "seeking"
+    ]
+  },
+  {
+    "phrase": "on the part of",
+    "replacements": [
+      "by"
+    ]
+  },
+  {
+    "phrase": "by the hand of",
+    "replacements": [
+      "by"
+    ]
+  },
+  {
+    "phrase": "in conclusion",
+    "replacements": [
+      "finally"
+    ]
+  },
+  {
+    "phrase": "in summary",
+    "replacements": [
+      "briefly"
+    ]
+  },
+  {
+    "phrase": "to sum up",
+    "replacements": [
+      "briefly"
+    ]
+  },
+  {
+    "phrase": "in brief",
+    "replacements": [
+      "briefly"
+    ]
+  },
+  {
+    "phrase": "to make a long story short",
+    "replacements": [
+      "briefly"
+    ]
+  },
+  {
+    "phrase": "to put it another way",
+    "replacements": [
+      "i.e.",
+      "in short"
+    ]
+  },
+  {
+    "phrase": "that is to say",
+    "replacements": [
+      "i.e."
+    ]
+  },
+  {
+    "phrase": "in the last analysis",
+    "replacements": [
+      "ultimately"
+    ]
+  },
+  {
+    "phrase": "when all is said and done",
+    "replacements": [
+      "ultimately"
+    ]
+  },
+  {
+    "phrase": "all in all",
+    "replacements": [
+      "overall"
+    ]
+  },
+  {
+    "phrase": "on balance",
+    "replacements": [
+      "overall"
+    ]
+  },
+  {
+    "phrase": "to begin with",
+    "replacements": [
+      "first"
+    ]
+  },
+  {
+    "phrase": "to start with",
+    "replacements": [
+      "first"
+    ]
+  },
+  {
+    "phrase": "for starters",
+    "replacements": [
+      "first"
+    ]
+  },
+  {
+    "phrase": "in that case",
+    "replacements": [
+      "then"
+    ]
+  },
+  {
+    "phrase": "generally speaking",
+    "replacements": [
+      "generally"
+    ]
+  },
+  {
+    "phrase": "strictly speaking",
+    "replacements": [
+      "strictly"
+    ]
+  },
+  {
+    "phrase": "broadly speaking",
+    "replacements": [
+      "broadly"
+    ]
+  },
+  {
+    "phrase": "roughly speaking",
+    "replacements": [
+      "roughly"
+    ]
+  },
+  {
+    "phrase": "technically speaking",
+    "replacements": [
+      "technically"
+    ]
+  },
+  {
+    "phrase": "frankly speaking",
+    "replacements": [
+      "frankly"
+    ]
+  },
+  {
+    "phrase": "honestly speaking",
+    "replacements": [
+      "honestly"
+    ]
+  },
+  {
+    "phrase": "to be honest",
+    "replacements": [
+      "honestly"
+    ]
+  },
+  {
+    "phrase": "to tell the truth",
+    "replacements": [
+      "honestly"
+    ]
+  },
+  {
+    "phrase": "in all honesty",
+    "replacements": [
+      "honestly"
+    ]
+  },
+  {
+    "phrase": "in all fairness",
+    "replacements": [
+      "fairly"
+    ]
+  },
+  {
+    "phrase": "in all seriousness",
+    "replacements": [
+      "seriously"
+    ]
+  },
+  {
+    "phrase": "in all truth",
+    "replacements": [
+      "truly"
+    ]
+  },
+  {
+    "phrase": "in reality",
+    "replacements": [
+      "actually"
+    ]
+  },
+  {
+    "phrase": "in actuality",
+    "replacements": [
+      "actually"
+    ]
+  },
+  {
+    "phrase": "in actual fact",
+    "replacements": [
+      "actually"
+    ]
+  },
+  {
+    "phrase": "as a practical matter",
+    "replacements": [
+      "practically"
+    ]
+  },
+  {
+    "phrase": "from a practical standpoint",
+    "replacements": [
+      "practically"
+    ]
+  },
+  {
+    "phrase": "from a practical perspective",
+    "replacements": [
+      "practically"
+    ]
+  },
+  {
+    "phrase": "from a theoretical standpoint",
+    "replacements": [
+      "theoretically"
+    ]
+  },
+  {
+    "phrase": "from a theoretical perspective",
+    "replacements": [
+      "theoretically"
+    ]
+  },
+  {
+    "phrase": "from an economic standpoint",
+    "replacements": [
+      "economically"
+    ]
+  },
+  {
+    "phrase": "from a legal standpoint",
+    "replacements": [
+      "legally"
+    ]
+  },
+  {
+    "phrase": "from a financial standpoint",
+    "replacements": [
+      "financially"
+    ]
+  },
+  {
+    "phrase": "from a technical standpoint",
+    "replacements": [
+      "technically"
+    ]
+  },
+  {
+    "phrase": "from a historical standpoint",
+    "replacements": [
+      "historically"
+    ]
+  },
+  {
+    "phrase": "from a scientific standpoint",
+    "replacements": [
+      "scientifically"
+    ]
+  },
+  {
+    "phrase": "from a medical standpoint",
+    "replacements": [
+      "medically"
+    ]
+  },
+  {
+    "phrase": "from a political standpoint",
+    "replacements": [
+      "politically"
+    ]
+  },
+  {
+    "phrase": "from a personal standpoint",
+    "replacements": [
+      "personally"
+    ]
+  },
+  {
+    "phrase": "from a professional standpoint",
+    "replacements": [
+      "professionally"
+    ]
+  },
+  {
+    "phrase": "as a rule",
+    "replacements": [
+      "usually"
+    ]
+  },
+  {
+    "phrase": "as per usual",
+    "replacements": [
+      "as usual"
+    ]
+  },
+  {
+    "phrase": "as a matter of course",
+    "replacements": [
+      "routinely"
+    ]
+  },
+  {
+    "phrase": "as a matter of routine",
+    "replacements": [
+      "routinely"
+    ]
+  },
+  {
+    "phrase": "in its entirety",
+    "replacements": [
+      "entirely"
+    ]
+  }
+]
