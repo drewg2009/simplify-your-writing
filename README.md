@@ -1,5 +1,8 @@
 # Simplify Your Writing
 
+<img width="1488" height="399" alt="image" src="https://github.com/user-attachments/assets/e4a6962f-2254-4887-9fbd-d3df6a9f72f2" />
+
+
 A tiny, fully client-side tool that finds wordy phrases in your text and suggests shorter ways to say the same thing. No AI, no network calls, no randomness — just deterministic dictionary lookups in your browser.
 
 Paste text into the editor, and every phrase that can be tightened gets highlighted. **Hover a highlighted phrase** to reveal its suggestion box (it stays open while your pointer is on the box), pick an option to replace that one phrase, hit **Replace All** to apply the top option everywhere, or dismiss a suggestion you don't agree with.
