@@ -104,6 +104,7 @@ Rules:
 - **Database-backed dictionary** — swap the `DICTIONARY` constant for a fetch of the same-shaped data from a server or SQLite-backed API; the engine only depends on the shape, not the source.
 - **Pattern rules** — e.g., `in a {adj} manner` → `{adv}`, handled by the same matcher.
 - **Stats** — words saved per edit, most-recurring phrases, per-document reports.
+- **API** - expose api for applications to leverage functionality
 
 ## Sources
 
