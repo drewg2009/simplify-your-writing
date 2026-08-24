@@ -44,7 +44,8 @@ let toastTimer = null;
 const indexByFirstWord = new Map();
 
 function wordCount(text) {
-  return text.trim() === "" ? 0 : text.split(/\s+/).length;
+  const trimmed = text.trim();
+  return trimmed === "" ? 0 : trimmed.split(/\s+/).length;
 }
 
 function usableReplacements(phrase, replacements) {

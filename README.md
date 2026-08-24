@@ -76,6 +76,14 @@ python3 -m http.server 8000
 
 No build step, no dependencies.
 
+## Tests
+
+The unit tests use Node's built-in test runner — no dependencies to install:
+
+```sh
+node --test
+```
+
 ## Adding your own rules
 
 Append to `DICTIONARY` in `dictionary.js`:
