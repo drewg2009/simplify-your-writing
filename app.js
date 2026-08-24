@@ -38,10 +38,10 @@ const WIDTH_PADDING_PX = 40;
 let nextMatchId = 1;
 // All current matches, left to right, rebuilt on every scan.
 let matches = [];
-// Layout data for every match, computed without building any box DOM: the
-// phrase's on-screen rectangle (for hover hit-testing) and where its
-// suggestion box would go. Suggestion boxes are built lazily on hover.
-let matchLayouts = [];
+// On-screen rectangles of each matched phrase, recorded during layout and
+// hit-tested on mousemove so the hovered phrase's box can be shown. Only
+// the hovered box's geometry is computed, on demand, when it's built.
+let phraseRects = [];
 // The single suggestion box currently shown, if any.
 let visibleBox = null;
 let rescanTimer = null;
@@ -307,7 +307,7 @@ function render() {
   if (text) {
     const orderedMatches = [...matches].sort((a, b) => a.startChar - b.startChar);
     renderMirror(text, orderedMatches);
-    layoutSuggestionBoxes(orderedMatches, mirror.querySelectorAll("mark"));
+    recordPhraseRects(mirror.querySelectorAll("mark"));
   }
   syncEditorHeights();
   updateStats();
@@ -363,41 +363,22 @@ function estimateSuggestionBoxWidth(match) {
 }
 
 /**
- * Computes the layout for every match without building any suggestion-box
- * DOM: where each phrase is on screen (for hover hit-testing) and where its
- * box would go. The box overlays its phrase, sitting just above it — flipped
- * below only when there's no room above (phrase at the top of the editor).
- * Only one box exists at a time (built on hover), so boxes never need to be
- * stacked against each other. Coordinates are in content space (relative to
- * the editor's scroll position), since the boxes layer scrolls with the
- * editor.
- * @param {Array} orderedMatches Matches sorted by startChar, parallel to marks.
- * @param {NodeList} marks The <mark> elements from the mirror, in the same order.
+ * Records each phrase's on-screen rectangle for hover hit-testing. This is
+ * the only per-match layout data needed: box geometry is computed on demand
+ * when a box is actually built, since only one box exists at a time.
+ * @param {NodeList} marks The <mark> elements from the mirror.
  */
-function layoutSuggestionBoxes(orderedMatches, marks) {
+function recordPhraseRects(marks) {
   if (!marks.length) return;
-  const editorRect = editor.getBoundingClientRect();
-  const scrollLeft = editor.scrollLeft;
-  const scrollTop = editor.scrollTop;
-  matchLayouts = [];
-
-  for (let i = 0; i < marks.length; i++) {
-    const mark = marks[i];
-    const match = orderedMatches[i];
+  phraseRects = [];
+  for (const mark of marks) {
     const markRect = mark.getBoundingClientRect();
-    const left = markRect.left - editorRect.left + scrollLeft;
-    const contentTop = markRect.top - editorRect.top + scrollTop;
-    matchLayouts.push({
-      id: match.id,
-      width: estimateSuggestionBoxWidth(match),
-      left,
-      top: topForBoxAbovePhrase(contentTop, markRect.height),
-      phraseRect: {
-        left: markRect.left,
-        top: markRect.top,
-        right: markRect.right,
-        bottom: markRect.bottom,
-      },
+    phraseRects.push({
+      id: Number(mark.dataset.matchId),
+      left: markRect.left,
+      top: markRect.top,
+      right: markRect.right,
+      bottom: markRect.bottom,
     });
   }
 }
@@ -458,22 +439,26 @@ function buildSuggestionBox(match) {
 }
 
 /**
- * Builds and shows the suggestion box for the given match on demand, at the
- * position recorded during layout. Any previously shown box is removed
- * first, so at most one box exists in the DOM at a time. Pass null to just
- * hide the current box.
+ * Builds and shows the suggestion box for the given match on demand. The
+ * box overlays its phrase, and its geometry is computed from the phrase's
+ * recorded rect (plus the editor's current scroll position) only when it's
+ * built. Any previously shown box is removed first, so at most one box
+ * exists in the DOM at a time. Pass null to just hide the current box.
  * @param {number|null} id
  */
 function showBoxForMatch(id) {
   hideBox();
   if (id == null) return;
-  const layout = matchLayouts.find((l) => l.id === id);
+  const rect = phraseRects.find((r) => r.id === id);
   const match = matches.find((m) => m.id === id);
-  if (!layout || !match) return;
+  if (!rect || !match) return;
+  const editorRect = editor.getBoundingClientRect();
+  const left = rect.left - editorRect.left + editor.scrollLeft;
+  const contentTop = rect.top - editorRect.top + editor.scrollTop;
   const box = buildSuggestionBox(match);
-  box.style.width = layout.width + "px";
-  box.style.left = layout.left + "px";
-  box.style.top = layout.top + "px";
+  box.style.width = estimateSuggestionBoxWidth(match) + "px";
+  box.style.left = left + "px";
+  box.style.top = topForBoxAbovePhrase(contentTop, rect.bottom - rect.top) + "px";
   boxesLayer.append(box);
   box.classList.add("visible");
   visibleBox = box;
@@ -799,7 +784,7 @@ editor.addEventListener("mousemove", (e) => {
   if (visibleBox && pointInRect(x, y, visibleBox.getBoundingClientRect())) {
     return;
   }
-  const hit = matchLayouts.find((layout) => pointInRect(x, y, layout.phraseRect));
+  const hit = phraseRects.find((rect) => pointInRect(x, y, rect));
   showBoxForMatch(hit ? hit.id : null);
 });
 
