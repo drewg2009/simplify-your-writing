@@ -11,6 +11,8 @@ Paste text into the editor, and every phrase that can be tightened gets highligh
 
 The whole point is predictability. Given the same text, this tool always produces the same suggestions in the same order. Every rule is a plain phrase → replacement mapping you can read and edit by hand, so nothing surprising ever comes out of it.
 
+Plus it's faster and doesn't rely on AI models
+
 ## How it works
 
 ### 1. The dictionary (`dictionary.js`)
