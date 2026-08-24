@@ -36,15 +36,24 @@ const MIN_SUGGESTION_WIDTH = 140;
 const MAX_SUGGESTION_WIDTH = 280;
 const CHAR_WIDTH_PX = 7.6;
 const WIDTH_PADDING_PX = 40;
+// Suggestion box height is estimated from the CSS-fixed row sizes, so the
+// whole layout can be computed without building any DOM (boxes are built
+// lazily, only for the phrase being hovered).
+const HEADER_ROW_PX = 30;
+const OPTION_ROW_PX = 31;
+const LIST_PADDING_PX = 12;
 
 /* ==================== State ==================== */
 
 let nextMatchId = 1;
 // All current matches, left to right, rebuilt on every scan.
 let matches = [];
-// On-screen rectangles of each matched phrase, recorded during layout and
-// hit-tested on mousemove so the hovered phrase's box can be shown.
-let phraseRects = [];
+// Layout data for every match, computed without building any box DOM: the
+// phrase's on-screen rectangle (for hover hit-testing) and where its
+// suggestion box would go. Suggestion boxes are built lazily on hover.
+let matchLayouts = [];
+// The single suggestion box currently shown, if any.
+let visibleBox = null;
 let rescanTimer = null;
 
 // Undo/redo timeline: history is a stack of text snapshots, historyIndex
@@ -304,6 +313,7 @@ function render() {
   const text = textarea.value;
   mirror.textContent = "";
   boxesLayer.textContent = "";
+  hideBox();
   if (text) {
     const orderedMatches = [...matches].sort((a, b) => a.startChar - b.startChar);
     renderMirror(text, orderedMatches);
@@ -363,6 +373,86 @@ function estimateSuggestionBoxWidth(match) {
 }
 
 /**
+ * Estimates a suggestion box height from the CSS-fixed row sizes: a header
+ * row, the options list's padding, and one row per replacement option.
+ * Generous by design, so a built box never overflows its reserved space.
+ * @param {object} match
+ * @returns {number} Height in pixels.
+ */
+function estimateSuggestionBoxHeight(match) {
+  return HEADER_ROW_PX + LIST_PADDING_PX + match.entry.replacements.length * OPTION_ROW_PX;
+}
+
+/**
+ * Computes the layout for every match without building any suggestion-box
+ * DOM: where each phrase is on screen (for hover hit-testing) and where its
+ * box would go, boxes stacked into rows above their phrase (below it when
+ * there's no room above). Coordinates are in content space (relative to the
+ * editor's scroll position), since the boxes layer scrolls with the editor.
+ * The actual box DOM is built on hover, in showBoxForMatch.
+ * @param {Array} orderedMatches Matches sorted by startChar, parallel to marks.
+ * @param {NodeList} marks The <mark> elements from the mirror, in the same order.
+ */
+function layoutSuggestionBoxes(orderedMatches, marks) {
+  if (!marks.length) return;
+  const editorRect = editor.getBoundingClientRect();
+  const scrollLeft = editor.scrollLeft;
+  const scrollTop = editor.scrollTop;
+  const placedBoxes = [];
+  matchLayouts = [];
+
+  for (let i = 0; i < marks.length; i++) {
+    const mark = marks[i];
+    const match = orderedMatches[i];
+    const markRect = mark.getBoundingClientRect();
+    const width = estimateSuggestionBoxWidth(match);
+    const height = estimateSuggestionBoxHeight(match);
+    const left = markRect.left - editorRect.left + scrollLeft;
+    const contentTop = markRect.top - editorRect.top + scrollTop;
+    const position = positionBox(left, width, height, contentTop, markRect.height, placedBoxes);
+    placedBoxes.push({
+      left: position.left,
+      right: position.left + width,
+      top: position.top,
+      bottom: position.top + height,
+    });
+    matchLayouts.push({
+      id: match.id,
+      width,
+      left: position.left,
+      top: position.top,
+      phraseRect: {
+        left: markRect.left,
+        top: markRect.top,
+        right: markRect.right,
+        bottom: markRect.bottom,
+      },
+    });
+  }
+}
+
+/**
+ * Decides where a box goes: above its phrase if there is room, flipped below
+ * the phrase otherwise, and clamped so it never leaves the top of the editor.
+ * @param {number} left Content-space left edge.
+ * @param {number} width
+ * @param {number} height
+ * @param {number} contentTop Content-space top of the phrase.
+ * @param {number} phraseHeight On-screen height of the phrase.
+ * @param {Array} placedBoxes Boxes already positioned (for collision checks).
+ * @returns {{left: number, top: number}} The final position in content space.
+ */
+function positionBox(left, width, height, contentTop, phraseHeight, placedBoxes) {
+  let top = contentTop - height - BOX_GAP;
+  top = shiftUpUntilClear(top, left, width, height, placedBoxes);
+  if (top < 0) {
+    top = contentTop + phraseHeight + BOX_GAP;
+    top = shiftDownUntilClear(top, left, width, height, placedBoxes);
+  }
+  return { left, top: Math.max(0, top) };
+}
+
+/**
  * Builds the DOM for one suggestion box: a header with the original phrase
  * and a dismiss button, plus one option button per usable replacement.
  * @param {object} match
@@ -401,74 +491,6 @@ function buildSuggestionBox(match) {
 
   box.append(header, options);
   return box;
-}
-
-/**
- * Positions one suggestion box per highlighted phrase, stacking boxes into
- * rows above their phrase (below it when there is no room above). Also
- * records each phrase's on-screen rectangle in phraseRects for hover
- * hit-testing. Box coordinates are in content space (relative to the
- * editor's scroll position), since the boxes layer scrolls with the editor.
- * @param {Array} orderedMatches Matches sorted by startChar, parallel to marks.
- * @param {NodeList} marks The <mark> elements from the mirror, in the same order.
- */
-function layoutSuggestionBoxes(orderedMatches, marks) {
-  if (!marks.length) return;
-  const editorRect = editor.getBoundingClientRect();
-  const scrollLeft = editor.scrollLeft;
-  const scrollTop = editor.scrollTop;
-  const placedBoxes = [];
-  phraseRects = [];
-
-  for (let i = 0; i < marks.length; i++) {
-    const mark = marks[i];
-    const match = orderedMatches[i];
-    const markRect = mark.getBoundingClientRect();
-    phraseRects.push({
-      id: match.id,
-      left: markRect.left,
-      top: markRect.top,
-      right: markRect.right,
-      bottom: markRect.bottom,
-    });
-
-    const box = buildSuggestionBox(match);
-    boxesLayer.append(box);
-    const width = estimateSuggestionBoxWidth(match);
-    box.style.width = width + "px";
-    const height = box.offsetHeight;
-
-    const left = markRect.left - editorRect.left + scrollLeft;
-    const contentTop = markRect.top - editorRect.top + scrollTop;
-    const top = positionBox(box, left, width, height, contentTop, markRect.height, placedBoxes);
-
-    placedBoxes.push({ left, right: left + width, top, bottom: top + height });
-  }
-}
-
-/**
- * Decides where a box goes: above its phrase if there is room, flipped below
- * the phrase otherwise, and clamped so it never leaves the top of the editor.
- * @param {HTMLElement} box
- * @param {number} left Content-space left edge.
- * @param {number} width
- * @param {number} height
- * @param {number} contentTop Content-space top of the phrase.
- * @param {number} phraseHeight On-screen height of the phrase.
- * @param {Array} placedBoxes Boxes already positioned (for collision checks).
- * @returns {number} The final top offset in content space.
- */
-function positionBox(box, left, width, height, contentTop, phraseHeight, placedBoxes) {
-  let top = contentTop - height - BOX_GAP;
-  top = shiftUpUntilClear(top, left, width, height, placedBoxes);
-  if (top < 0) {
-    top = contentTop + phraseHeight + BOX_GAP;
-    top = shiftDownUntilClear(top, left, width, height, placedBoxes);
-  }
-  top = Math.max(0, top);
-  box.style.left = left + "px";
-  box.style.top = top + "px";
-  return top;
 }
 
 /**
@@ -551,21 +573,34 @@ function verticallyOverlaps(top, height, placed) {
 }
 
 /**
- * Makes only the box for the given match id visible (pass null to hide all).
+ * Builds and shows the suggestion box for the given match on demand, at the
+ * position recorded during layout. Any previously shown box is removed
+ * first, so at most one box exists in the DOM at a time. Pass null to just
+ * hide the current box.
  * @param {number|null} id
  */
 function showBoxForMatch(id) {
-  for (const box of boxesLayer.children) {
-    box.classList.toggle("visible", Number(box.dataset.matchId) === id);
-  }
+  hideBox();
+  if (id == null) return;
+  const layout = matchLayouts.find((l) => l.id === id);
+  const match = matches.find((m) => m.id === id);
+  if (!layout || !match) return;
+  const box = buildSuggestionBox(match);
+  box.style.width = layout.width + "px";
+  box.style.left = layout.left + "px";
+  box.style.top = layout.top + "px";
+  boxesLayer.append(box);
+  box.classList.add("visible");
+  visibleBox = box;
 }
 
 /**
- * Hides every suggestion box.
+ * Removes the currently shown suggestion box, if any.
  */
-function hideAllBoxes() {
-  for (const box of boxesLayer.children) {
-    box.classList.remove("visible");
+function hideBox() {
+  if (visibleBox) {
+    visibleBox.remove();
+    visibleBox = null;
   }
 }
 
@@ -869,23 +904,21 @@ function pointInRect(x, y, rect) {
   return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
 }
 
-// Hover tracking: while the pointer is over a visible box, keep that box
-// open (so it doesn't flicker as the pointer leaves the phrase); otherwise
-// hit-test against the recorded phrase rectangles.
+// Hover tracking: while the pointer is over the visible box, keep it open
+// (so it doesn't flicker as the pointer leaves the phrase); otherwise
+// hit-test against the recorded phrase rectangles and build the box for the
+// hovered phrase on demand.
 editor.addEventListener("mousemove", (e) => {
   const x = e.clientX;
   const y = e.clientY;
-  for (const box of boxesLayer.children) {
-    if (pointInRect(x, y, box.getBoundingClientRect())) {
-      showBoxForMatch(Number(box.dataset.matchId));
-      return;
-    }
+  if (visibleBox && pointInRect(x, y, visibleBox.getBoundingClientRect())) {
+    return;
   }
-  const hit = phraseRects.find((rect) => pointInRect(x, y, rect));
+  const hit = matchLayouts.find((layout) => pointInRect(x, y, layout.phraseRect));
   showBoxForMatch(hit ? hit.id : null);
 });
 
-editor.addEventListener("mouseleave", hideAllBoxes);
+editor.addEventListener("mouseleave", hideBox);
 
 window.addEventListener("resize", () => render());
 
