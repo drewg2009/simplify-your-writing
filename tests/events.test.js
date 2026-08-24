@@ -68,3 +68,14 @@ test("clicking a suggestion option applies the replacement", () => {
   fire(elements["boxes"], "click", { target: firstOption });
   assert.equal(input.value, "Since we tried");
 });
+
+test("the box overlays the hovered line fragment, not a union box", () => {
+  const { app, internals, elements } = loadApp("due to the fact that we tried");
+  app.scheduleFullRescan();
+  app.render();
+  const match = internals.matches[0];
+  app.showBoxForMatch(match.id, { id: match.id, left: 300, top: 100, right: 400, bottom: 118 });
+  const box = elements["boxes"].children[0];
+  assert.equal(box.style.left, "300px");
+  assert.equal(box.style.top, "92px");
+});

@@ -131,6 +131,15 @@ function loadApp(initialText = "") {
     createElement(tag) { return createElement(tag, { tagName: tag }); },
     createDocumentFragment() { return createElement("fragment"); },
     createTextNode(text) { return { nodeType: 3, textContent: text }; },
+    createRange() {
+      let node = null;
+      return {
+        selectNodeContents(element) { node = element; },
+        getClientRects() {
+          return node ? [node.getBoundingClientRect()] : [];
+        },
+      };
+    },
     addEventListener() {},
   };
   const window = { addEventListener() {} };

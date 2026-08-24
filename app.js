@@ -363,23 +363,33 @@ function estimateSuggestionBoxWidth(match) {
 }
 
 /**
- * Records each phrase's on-screen rectangle for hover hit-testing. This is
- * the only per-match layout data needed: box geometry is computed on demand
+ * Records the on-screen rectangles of each matched phrase for hover
+ * hit-testing. Phrases that wrap across lines contribute one rect per line,
+ * so hovering any line of a phrase targets that exact line. Rects are stored
+ * in content coordinates (relative to the editor's scroll position), so they
+ * stay valid while the editor scrolls. Box geometry is computed on demand
  * when a box is actually built, since only one box exists at a time.
  * @param {NodeList} marks The <mark> elements from the mirror.
  */
 function recordPhraseRects(marks) {
   if (!marks.length) return;
+  const editorRect = editor.getBoundingClientRect();
+  const scrollLeft = editor.scrollLeft;
+  const scrollTop = editor.scrollTop;
   phraseRects = [];
   for (const mark of marks) {
-    const markRect = mark.getBoundingClientRect();
-    phraseRects.push({
-      id: Number(mark.dataset.matchId),
-      left: markRect.left,
-      top: markRect.top,
-      right: markRect.right,
-      bottom: markRect.bottom,
-    });
+    const id = Number(mark.dataset.matchId);
+    const range = document.createRange();
+    range.selectNodeContents(mark);
+    for (const fragment of range.getClientRects()) {
+      phraseRects.push({
+        id,
+        left: fragment.left - editorRect.left + scrollLeft,
+        top: fragment.top - editorRect.top + scrollTop,
+        right: fragment.right - editorRect.left + scrollLeft,
+        bottom: fragment.bottom - editorRect.top + scrollTop,
+      });
+    }
   }
 }
 
@@ -439,26 +449,23 @@ function buildSuggestionBox(match) {
 }
 
 /**
- * Builds and shows the suggestion box for the given match on demand. The
- * box overlays its phrase, and its geometry is computed from the phrase's
- * recorded rect (plus the editor's current scroll position) only when it's
- * built. Any previously shown box is removed first, so at most one box
- * exists in the DOM at a time. Pass null to just hide the current box.
+ * Builds and shows the suggestion box for the hovered line of a match on
+ * demand. The box overlays that line, and its geometry is computed from the
+ * line's rect (already in content space) only when it's built. Any
+ * previously shown box is removed first, so at most one box exists in the
+ * DOM at a time. Pass null to just hide the current box.
  * @param {number|null} id
+ * @param {object|null} rect The hovered line fragment's rect (in content space).
  */
-function showBoxForMatch(id) {
+function showBoxForMatch(id, rect) {
   hideBox();
   if (id == null) return;
-  const rect = phraseRects.find((r) => r.id === id);
   const match = matches.find((m) => m.id === id);
   if (!rect || !match) return;
-  const editorRect = editor.getBoundingClientRect();
-  const left = rect.left - editorRect.left + editor.scrollLeft;
-  const contentTop = rect.top - editorRect.top + editor.scrollTop;
   const box = buildSuggestionBox(match);
   box.style.width = estimateSuggestionBoxWidth(match) + "px";
-  box.style.left = left + "px";
-  box.style.top = topForBoxAbovePhrase(contentTop, rect.bottom - rect.top) + "px";
+  box.style.left = rect.left + "px";
+  box.style.top = topForBoxAbovePhrase(rect.top, rect.bottom - rect.top) + "px";
   boxesLayer.append(box);
   box.classList.add("visible");
   visibleBox = box;
@@ -776,16 +783,19 @@ function pointInRect(x, y, rect) {
 
 // Hover tracking: while the pointer is over the visible box, keep it open
 // (so it doesn't flicker as the pointer leaves the phrase); otherwise
-// hit-test against the recorded phrase rectangles and build the box for the
-// hovered phrase on demand.
+// hit-test the pointer against the recorded line fragments (converted to
+// content space) and build the box for the hovered line on demand.
 editor.addEventListener("mousemove", (e) => {
   const x = e.clientX;
   const y = e.clientY;
   if (visibleBox && pointInRect(x, y, visibleBox.getBoundingClientRect())) {
     return;
   }
-  const hit = phraseRects.find((rect) => pointInRect(x, y, rect));
-  showBoxForMatch(hit ? hit.id : null);
+  const editorRect = editor.getBoundingClientRect();
+  const contentX = x - editorRect.left + editor.scrollLeft;
+  const contentY = y - editorRect.top + editor.scrollTop;
+  const hit = phraseRects.find((rect) => pointInRect(contentX, contentY, rect));
+  showBoxForMatch(hit ? hit.id : null, hit);
 });
 
 editor.addEventListener("mouseleave", hideBox);
