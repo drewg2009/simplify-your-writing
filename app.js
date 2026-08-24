@@ -24,12 +24,8 @@ const SCAN_DEBOUNCE_MS = 200;
 // Debounce before a typing burst is committed to the undo history as one step.
 const HISTORY_DEBOUNCE_MS = 500;
 const TOAST_DURATION_MS = 2200;
-// Vertical gap between a suggestion box and its phrase (BOX_GAP), and between
-// stacked boxes that collide horizontally (STACK_GAP).
+// Gap between a suggestion box and the phrase it overlays.
 const BOX_GAP = 8;
-const STACK_GAP = 6;
-// Safety valve for the collision-stacking loops.
-const MAX_STACK_ATTEMPTS = 20;
 // Suggestion box width is a rough estimate: longest label text × average
 // character width, clamped between these bounds.
 const MIN_SUGGESTION_WIDTH = 140;
@@ -42,9 +38,12 @@ const WIDTH_PADDING_PX = 40;
 let nextMatchId = 1;
 // All current matches, left to right, rebuilt on every scan.
 let matches = [];
-// On-screen rectangles of each matched phrase, recorded during layout and
-// hit-tested on mousemove so the hovered phrase's box can be shown.
-let phraseRects = [];
+// Layout data for every match, computed without building any box DOM: the
+// phrase's on-screen rectangle (for hover hit-testing) and where its
+// suggestion box would go. Suggestion boxes are built lazily on hover.
+let matchLayouts = [];
+// The single suggestion box currently shown, if any.
+let visibleBox = null;
 let rescanTimer = null;
 
 // Undo/redo timeline: history is a stack of text snapshots, historyIndex
@@ -304,6 +303,7 @@ function render() {
   const text = textarea.value;
   mirror.textContent = "";
   boxesLayer.textContent = "";
+  hideBox();
   if (text) {
     const orderedMatches = [...matches].sort((a, b) => a.startChar - b.startChar);
     renderMirror(text, orderedMatches);
@@ -363,6 +363,60 @@ function estimateSuggestionBoxWidth(match) {
 }
 
 /**
+ * Computes the layout for every match without building any suggestion-box
+ * DOM: where each phrase is on screen (for hover hit-testing) and where its
+ * box would go. The box overlays its phrase, sitting just above it — flipped
+ * below only when there's no room above (phrase at the top of the editor).
+ * Only one box exists at a time (built on hover), so boxes never need to be
+ * stacked against each other. Coordinates are in content space (relative to
+ * the editor's scroll position), since the boxes layer scrolls with the
+ * editor.
+ * @param {Array} orderedMatches Matches sorted by startChar, parallel to marks.
+ * @param {NodeList} marks The <mark> elements from the mirror, in the same order.
+ */
+function layoutSuggestionBoxes(orderedMatches, marks) {
+  if (!marks.length) return;
+  const editorRect = editor.getBoundingClientRect();
+  const scrollLeft = editor.scrollLeft;
+  const scrollTop = editor.scrollTop;
+  matchLayouts = [];
+
+  for (let i = 0; i < marks.length; i++) {
+    const mark = marks[i];
+    const match = orderedMatches[i];
+    const markRect = mark.getBoundingClientRect();
+    const left = markRect.left - editorRect.left + scrollLeft;
+    const contentTop = markRect.top - editorRect.top + scrollTop;
+    matchLayouts.push({
+      id: match.id,
+      width: estimateSuggestionBoxWidth(match),
+      left,
+      top: topForBoxAbovePhrase(contentTop, markRect.height),
+      phraseRect: {
+        left: markRect.left,
+        top: markRect.top,
+        right: markRect.right,
+        bottom: markRect.bottom,
+      },
+    });
+  }
+}
+
+/**
+ * Where a box's top edge goes: BOX_GAP above the phrase, so the box overlays
+ * it. If that would push the box off the top of the editor, it flips to just
+ * below the phrase instead.
+ * @param {number} contentTop Content-space top of the phrase.
+ * @param {number} phraseHeight On-screen height of the phrase.
+ * @returns {number} The box's top offset in content space.
+ */
+function topForBoxAbovePhrase(contentTop, phraseHeight) {
+  let top = contentTop - BOX_GAP;
+  if (top < 0) top = contentTop + phraseHeight + BOX_GAP;
+  return top;
+}
+
+/**
  * Builds the DOM for one suggestion box: a header with the original phrase
  * and a dismiss button, plus one option button per usable replacement.
  * @param {object} match
@@ -404,168 +458,34 @@ function buildSuggestionBox(match) {
 }
 
 /**
- * Positions one suggestion box per highlighted phrase, stacking boxes into
- * rows above their phrase (below it when there is no room above). Also
- * records each phrase's on-screen rectangle in phraseRects for hover
- * hit-testing. Box coordinates are in content space (relative to the
- * editor's scroll position), since the boxes layer scrolls with the editor.
- * @param {Array} orderedMatches Matches sorted by startChar, parallel to marks.
- * @param {NodeList} marks The <mark> elements from the mirror, in the same order.
- */
-function layoutSuggestionBoxes(orderedMatches, marks) {
-  if (!marks.length) return;
-  const editorRect = editor.getBoundingClientRect();
-  const scrollLeft = editor.scrollLeft;
-  const scrollTop = editor.scrollTop;
-  const placedBoxes = [];
-  phraseRects = [];
-
-  for (let i = 0; i < marks.length; i++) {
-    const mark = marks[i];
-    const match = orderedMatches[i];
-    const markRect = mark.getBoundingClientRect();
-    phraseRects.push({
-      id: match.id,
-      left: markRect.left,
-      top: markRect.top,
-      right: markRect.right,
-      bottom: markRect.bottom,
-    });
-
-    const box = buildSuggestionBox(match);
-    boxesLayer.append(box);
-    const width = estimateSuggestionBoxWidth(match);
-    box.style.width = width + "px";
-    const height = box.offsetHeight;
-
-    const left = markRect.left - editorRect.left + scrollLeft;
-    const contentTop = markRect.top - editorRect.top + scrollTop;
-    const top = positionBox(box, left, width, height, contentTop, markRect.height, placedBoxes);
-
-    placedBoxes.push({ left, right: left + width, top, bottom: top + height });
-  }
-}
-
-/**
- * Decides where a box goes: above its phrase if there is room, flipped below
- * the phrase otherwise, and clamped so it never leaves the top of the editor.
- * @param {HTMLElement} box
- * @param {number} left Content-space left edge.
- * @param {number} width
- * @param {number} height
- * @param {number} contentTop Content-space top of the phrase.
- * @param {number} phraseHeight On-screen height of the phrase.
- * @param {Array} placedBoxes Boxes already positioned (for collision checks).
- * @returns {number} The final top offset in content space.
- */
-function positionBox(box, left, width, height, contentTop, phraseHeight, placedBoxes) {
-  let top = contentTop - height - BOX_GAP;
-  top = shiftUpUntilClear(top, left, width, height, placedBoxes);
-  if (top < 0) {
-    top = contentTop + phraseHeight + BOX_GAP;
-    top = shiftDownUntilClear(top, left, width, height, placedBoxes);
-  }
-  top = Math.max(0, top);
-  box.style.left = left + "px";
-  box.style.top = top + "px";
-  return top;
-}
-
-/**
- * Moves a box upward, row by row, until it no longer overlaps any already
- * placed box that shares its horizontal span. Returns the first clear
- * position, which may be negative (that's how the caller knows there's no
- * room above and flips below).
- * @param {number} top
- * @param {number} left
- * @param {number} width
- * @param {number} height
- * @param {Array} placedBoxes
- * @returns {number}
- */
-function shiftUpUntilClear(top, left, width, height, placedBoxes) {
-  let attempts = 0;
-  while (attempts++ < MAX_STACK_ATTEMPTS) {
-    const collision = findCollision(top, left, width, height, placedBoxes);
-    if (!collision) break;
-    top = collision.top - height - STACK_GAP;
-  }
-  return top;
-}
-
-/**
- * Same as shiftUpUntilClear, but moving downward — used when there's no
- * room above the phrase.
- * @param {number} top
- * @param {number} left
- * @param {number} width
- * @param {number} height
- * @param {Array} placedBoxes
- * @returns {number}
- */
-function shiftDownUntilClear(top, left, width, height, placedBoxes) {
-  let attempts = 0;
-  while (attempts++ < MAX_STACK_ATTEMPTS) {
-    const collision = findCollision(top, left, width, height, placedBoxes);
-    if (!collision) break;
-    top = collision.bottom + STACK_GAP;
-  }
-  return top;
-}
-
-/**
- * Finds the first placed box that overlaps the given box on both axes.
- * @param {number} top
- * @param {number} left
- * @param {number} width
- * @param {number} height
- * @param {Array} placedBoxes
- * @returns {object|undefined}
- */
-function findCollision(top, left, width, height, placedBoxes) {
-  return placedBoxes.find(
-    (placed) =>
-      horizontallyOverlaps(left, width, placed) &&
-      verticallyOverlaps(top, height, placed)
-  );
-}
-
-/**
- * @param {number} left Left edge of a candidate box.
- * @param {number} width Width of a candidate box.
- * @param {object} placed A placed box with left/right.
- * @returns {boolean} Whether the two boxes share any horizontal space.
- */
-function horizontallyOverlaps(left, width, placed) {
-  return left < placed.right && left + width > placed.left;
-}
-
-/**
- * @param {number} top Top edge of a candidate box.
- * @param {number} height Height of a candidate box.
- * @param {object} placed A placed box with top/bottom.
- * @returns {boolean} Whether the two boxes share any vertical space.
- */
-function verticallyOverlaps(top, height, placed) {
-  return top < placed.bottom && top + height > placed.top;
-}
-
-/**
- * Makes only the box for the given match id visible (pass null to hide all).
+ * Builds and shows the suggestion box for the given match on demand, at the
+ * position recorded during layout. Any previously shown box is removed
+ * first, so at most one box exists in the DOM at a time. Pass null to just
+ * hide the current box.
  * @param {number|null} id
  */
 function showBoxForMatch(id) {
-  for (const box of boxesLayer.children) {
-    box.classList.toggle("visible", Number(box.dataset.matchId) === id);
-  }
+  hideBox();
+  if (id == null) return;
+  const layout = matchLayouts.find((l) => l.id === id);
+  const match = matches.find((m) => m.id === id);
+  if (!layout || !match) return;
+  const box = buildSuggestionBox(match);
+  box.style.width = layout.width + "px";
+  box.style.left = layout.left + "px";
+  box.style.top = layout.top + "px";
+  boxesLayer.append(box);
+  box.classList.add("visible");
+  visibleBox = box;
 }
 
 /**
- * Hides every suggestion box.
+ * Removes the currently shown suggestion box, if any.
  */
-function hideAllBoxes() {
-  for (const box of boxesLayer.children) {
-    box.classList.remove("visible");
+function hideBox() {
+  if (visibleBox) {
+    visibleBox.remove();
+    visibleBox = null;
   }
 }
 
@@ -869,23 +789,21 @@ function pointInRect(x, y, rect) {
   return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
 }
 
-// Hover tracking: while the pointer is over a visible box, keep that box
-// open (so it doesn't flicker as the pointer leaves the phrase); otherwise
-// hit-test against the recorded phrase rectangles.
+// Hover tracking: while the pointer is over the visible box, keep it open
+// (so it doesn't flicker as the pointer leaves the phrase); otherwise
+// hit-test against the recorded phrase rectangles and build the box for the
+// hovered phrase on demand.
 editor.addEventListener("mousemove", (e) => {
   const x = e.clientX;
   const y = e.clientY;
-  for (const box of boxesLayer.children) {
-    if (pointInRect(x, y, box.getBoundingClientRect())) {
-      showBoxForMatch(Number(box.dataset.matchId));
-      return;
-    }
+  if (visibleBox && pointInRect(x, y, visibleBox.getBoundingClientRect())) {
+    return;
   }
-  const hit = phraseRects.find((rect) => pointInRect(x, y, rect));
+  const hit = matchLayouts.find((layout) => pointInRect(x, y, layout.phraseRect));
   showBoxForMatch(hit ? hit.id : null);
 });
 
-editor.addEventListener("mouseleave", hideAllBoxes);
+editor.addEventListener("mouseleave", hideBox);
 
 window.addEventListener("resize", () => render());
 

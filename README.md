@@ -42,7 +42,7 @@ Anything that would make the text longer is discarded at startup (and logged to 
 - **Hash index** — at startup every dictionary phrase is indexed by its **first word** (`Map<firstWord, entries[]>`), so the scanner only ever looks at candidates that can actually match at the current position.
 - **Greedy longest-match scan** — the text is walked left to right. At each word only the first-word bucket is consulted, and the longest matching phrase wins (so `because of the fact that` beats `because of`, and they never overlap).
 - **Overlaps** — matches never overlap in the text, but their suggestion boxes can collide horizontally, so boxes are **staggered** into stacked rows above the phrase (flipping below the text when there's no room above).
-- **Hover tracking** — during layout every phrase's on-screen rectangle is recorded (`phraseRects`), and a `mousemove` handler hit-tests the pointer against those rects (plus the visible box rects) so only the hovered phrase's box is ever shown. The phrase's character span is what gets tracked; the rects are derived from it each render.
+- **Hover tracking** — during layout every phrase's on-screen rectangle and box position are recorded (`matchLayouts`) with no DOM built for the boxes themselves. A `mousemove` handler hit-tests the pointer against those rects (plus the visible box's own rect, so the box stays open under the pointer) and builds the one suggestion box for the hovered phrase on demand. The box overlays its phrase, sitting just above it (flipping below when there's no room); at most one box exists in the DOM at a time.
 
 ### 4. Editing
 

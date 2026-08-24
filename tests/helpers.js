@@ -64,6 +64,13 @@ function createElement(id, options = {}) {
       el.children.push(child);
       return child;
     },
+    remove() {
+      if (el.parentNode) {
+        const index = el.parentNode.children.indexOf(el);
+        if (index !== -1) el.parentNode.children.splice(index, 1);
+        el.parentNode = null;
+      }
+    },
     closest(selector) {
       const wanted = selector.replace(".", "");
       let node = el;
