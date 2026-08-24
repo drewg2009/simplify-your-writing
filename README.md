@@ -115,8 +115,9 @@ Contributions are welcome. The best way to help is to add or improve dictionary 
 
 1. **Fork the repo** and create a branch for your change.
 2. **Add entries** to `DICTIONARY` in `dictionary.js` (see [Adding your own rules](#adding-your-own-rules)).
-3. **Test in the browser** — open `index.html` and paste a few sentences containing your phrases. Confirm the suggestions appear, are shorter, and the replacement reads naturally.
-4. **Keep entries factual** — only submit phrases you've actually seen in real writing, with replacements that preserve the meaning.
-5. **Submit a pull request** describing the entries you added and where you sourced them.
+3. **Run the unit tests** — `node --test`. Every replacement must obey the "never extend the copy" rule and be ranked shortest-first, or the suite will tell you exactly which entry is at fault.
+4. **Test in the browser** — open `index.html` and paste a few sentences containing your phrases. Confirm the suggestions appear, are shorter, and the replacement reads naturally.
+5. **Keep entries factual** — only submit phrases you've actually seen in real writing, with replacements that preserve the meaning.
+6. **Submit a pull request** describing the entries you added and where you sourced them.
 
-Code changes to the engine (`app.js`, `style.css`, `index.html`) are welcome too — make sure existing behavior (deterministic matching, the "never extend the copy" rule) still holds, and that `app.js` runs without errors in the console.
+Code changes to the engine (`app.js`, `style.css`, `index.html`) are welcome too — make sure the unit tests still pass (`node --test`), existing behavior (deterministic matching, the "never extend the copy" rule) still holds, and that `app.js` runs without errors in the console.
