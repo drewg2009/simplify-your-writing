@@ -24,6 +24,11 @@
     </div>
   </div>
 
+  <!--
+    Editor layering: a transparent-textarea sits on top of the mirror div,
+    which renders the same text with <mark> highlights. The boxes div holds
+    the absolutely positioned suggestion boxes. See app.js.
+  -->
   <div id="editor" class="editor">
     <div id="mirror" class="mirror" aria-hidden="true"></div>
     <div id="boxes" class="boxes"></div>
