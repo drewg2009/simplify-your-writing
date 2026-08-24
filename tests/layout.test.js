@@ -13,25 +13,16 @@ test("suggestion box width grows with content but stays within bounds", () => {
   assert.equal(app.estimateSuggestionBoxWidth(long), 280);
 });
 
-test("shiftUpUntilClear stacks a box above its collision", () => {
+test("the box top overlays the phrase, BOX_GAP above it", () => {
   const { app } = loadApp();
-  const placed = [{ left: 10, right: 60, top: 0, bottom: 30 }];
-  assert.equal(app.shiftUpUntilClear(5, 20, 30, 20, placed), -26);
-  assert.equal(app.shiftUpUntilClear(40, 20, 30, 20, placed), 40);
+  assert.equal(app.topForBoxAbovePhrase(25, 18), 17);
+  assert.equal(app.topForBoxAbovePhrase(120, 18), 112);
 });
 
-test("shiftDownUntilClear stacks a box below its collision", () => {
+test("the box flips below the phrase when there's no room above", () => {
   const { app } = loadApp();
-  const placed = [{ left: 10, right: 60, top: 0, bottom: 30 }];
-  assert.equal(app.shiftDownUntilClear(20, 20, 30, 20, placed), 36);
-});
-
-test("overlap helpers detect collisions on each axis", () => {
-  const { app } = loadApp();
-  assert.equal(app.horizontallyOverlaps(20, 30, { left: 10, right: 60 }), true);
-  assert.equal(app.horizontallyOverlaps(70, 20, { left: 10, right: 60 }), false);
-  assert.equal(app.verticallyOverlaps(5, 20, { top: 0, bottom: 30 }), true);
-  assert.equal(app.verticallyOverlaps(40, 20, { top: 0, bottom: 30 }), false);
+  assert.equal(app.topForBoxAbovePhrase(3, 18), 29);
+  assert.equal(app.topForBoxAbovePhrase(0, 18), 26);
 });
 
 test("render marks every match in the mirror", () => {
