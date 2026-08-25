@@ -50,7 +50,7 @@ Anything that would make the text longer is discarded at startup (and logged to 
 - **Replace All** — applies the first (shortest) option to every suggestion at once, then re-scans. The toast reports how many phrases were replaced and the total characters and words saved.
 - **Undo / redo** — a timeline of text snapshots: every change (replace, replace all, clear, and typing bursts) pushes a new snapshot and discards anything ahead of it in the redo stack; undo pops backwards and re-pushes onto the redo stack. Typing is coalesced (a 500 ms idle debounce), so a burst of keystrokes is one undo step. Buttons in the toolbar, plus `Cmd/Ctrl+Z`, `Cmd/Ctrl+Shift+Z`, and `Ctrl+Y`.
 - **Dismiss (×)** — hides that suggestion until the next re-scan.
-- **Typing/pasting** — a 200 ms debounce triggers a full re-scan so suggestions stay in sync as you edit manually.
+- **Typing/pasting** — a 200 ms debounce triggers a full re-scan so suggestions stay in sync as you type; deletions re-scan immediately so highlights never lag behind removed text.
 
 ### 5. Rendering
 

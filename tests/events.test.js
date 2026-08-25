@@ -18,6 +18,22 @@ test("typing rescans after the debounce delay", () => {
   }
 });
 
+test("deleting text rescans immediately without the debounce delay", () => {
+  mock.timers.enable({ apis: ["setTimeout"] });
+  try {
+    const { app, input, elements, fire } = loadApp("due to the fact that we tried");
+    app.scheduleFullRescan();
+    app.render();
+    input.value = "due to";
+    fire(input, "input");
+    assert.equal(elements["stats"].textContent, "No suggestions");
+    mock.timers.tick(500);
+    assert.equal(elements["stats"].textContent, "No suggestions");
+  } finally {
+    mock.timers.reset();
+  }
+});
+
 test("clearing the input cancels pending work and commits immediately", () => {
   mock.timers.enable({ apis: ["setTimeout"] });
   try {

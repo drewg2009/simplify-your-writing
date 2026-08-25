@@ -33,6 +33,7 @@ let nextMatchId = 1;
 let matches = [];
 let phraseRects = [];
 let rescanTimer = null;
+let previousLength = 0;
 
 let history = [textarea.value];
 let historyIndex = 0;
@@ -422,6 +423,7 @@ function replaceAll() {
 
 function clearAll() {
   textarea.value = "";
+  previousLength = 0;
   pushHistory("");
   matches = [];
   render();
@@ -439,6 +441,7 @@ function pushHistory(newText) {
 
 function setTextAndRescan(newText) {
   textarea.value = newText;
+  previousLength = newText.length;
   matches = scan(newText, 0);
   render();
 }
@@ -505,10 +508,16 @@ textarea.addEventListener("input", () => {
     matches = [];
     render();
     pushHistory("");
+    previousLength = 0;
     return;
   }
   clearTimeout(rescanTimer);
-  rescanTimer = setTimeout(scheduleFullRescan, SCAN_DEBOUNCE_MS);
+  if (textarea.value.length < previousLength) {
+    scheduleFullRescan();
+  } else {
+    rescanTimer = setTimeout(scheduleFullRescan, SCAN_DEBOUNCE_MS);
+  }
+  previousLength = textarea.value.length;
   clearTimeout(historyTimer);
   historyTimer = setTimeout(recordTypingBurst, HISTORY_DEBOUNCE_MS);
 });
@@ -594,5 +603,6 @@ window.addEventListener("resize", () => render());
 /* ==================== Init ==================== */
 
 buildIndex();
+previousLength = textarea.value.length;
 matches = scan(textarea.value, 0);
 render();
