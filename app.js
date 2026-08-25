@@ -282,12 +282,14 @@ function layoutSuggestionBoxes(orderedMatches, marks) {
     const mark = marks[i];
     const match = orderedMatches[i];
     const markRect = mark.getBoundingClientRect();
+    const left = markRect.left - editorRect.left + scrollLeft;
+    const contentTop = markRect.top - editorRect.top + scrollTop;
     phraseRects.push({
       id: match.id,
-      left: markRect.left,
-      top: markRect.top,
-      right: markRect.right,
-      bottom: markRect.bottom,
+      left,
+      top: contentTop,
+      right: left + markRect.width,
+      bottom: contentTop + markRect.height,
     });
 
     const box = buildSuggestionBox(match);
@@ -296,8 +298,6 @@ function layoutSuggestionBoxes(orderedMatches, marks) {
     box.style.width = width + "px";
     const height = box.offsetHeight;
 
-    const left = markRect.left - editorRect.left + scrollLeft;
-    const contentTop = markRect.top - editorRect.top + scrollTop;
     const top = positionBox(box, left, width, height, contentTop, markRect.height, placedBoxes);
 
     placedBoxes.push({ left, right: left + width, top, bottom: top + height });
@@ -576,7 +576,14 @@ editor.addEventListener("mousemove", (e) => {
       return;
     }
   }
-  const hit = phraseRects.find((rect) => pointInRect(x, y, rect));
+  const editorRect = editor.getBoundingClientRect();
+  const hit = phraseRects.find((rect) =>
+    pointInRect(
+      x - editorRect.left + editor.scrollLeft,
+      y - editorRect.top + editor.scrollTop,
+      rect
+    )
+  );
   showBoxForMatch(hit ? hit.id : null);
 });
 

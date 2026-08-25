@@ -42,7 +42,7 @@ Anything that would make the text longer is discarded at startup (and logged to 
 - **Hash index** — at startup every dictionary phrase is indexed by its **first word** (`Map<firstWord, entries[]>`), so the scanner only ever looks at candidates that can actually match at the current position.
 - **Greedy longest-match scan** — the text is walked left to right. At each word only the first-word bucket is consulted, and the longest matching phrase wins (so `because of the fact that` beats `because of`, and they never overlap).
 - **Overlaps** — matches never overlap in the text, but their suggestion boxes can collide horizontally, so boxes are **staggered** into stacked rows above the phrase (flipping below the text when there's no room above).
-- **Hover tracking** — during layout every phrase's on-screen rectangle is recorded (`phraseRects`), and a `mousemove` handler hit-tests the pointer against those rects (plus the visible box rects) so only the hovered phrase's box is ever shown. The phrase's character span is what gets tracked; the rects are derived from it each render.
+- **Hover tracking** — during layout every phrase's rectangle is recorded in **editor-content coordinates** (`phraseRects`, so the rects stay valid while the editor scrolls), and a `mousemove` handler hit-tests the pointer against those rects (plus the visible box rects) so only the hovered phrase's box is ever shown. The phrase's character span is what gets tracked; the rects are derived from it each render.
 
 ### 4. Editing
 
@@ -82,6 +82,13 @@ The unit tests use Node's built-in test runner — no dependencies to install:
 
 ```sh
 node --test
+```
+
+The end-to-end test runs the real app in a headless browser (Playwright, using your installed Chrome) and is needed for scroll/hover geometry that the unit harness can't simulate:
+
+```sh
+npm install   # first time only
+npm run test:e2e
 ```
 
 ## Adding your own rules
