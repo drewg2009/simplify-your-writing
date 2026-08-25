@@ -15,19 +15,13 @@ const toastEl = document.getElementById("toast");
 
 /* ==================== Constants ==================== */
 
-// How far before an edit we re-match when doing a targeted re-scan. Wide
-// enough to catch any phrase that starts just before the edit, small enough
-// to keep re-scans cheap.
 const RESCAN_CONTEXT_CHARS = 80;
-// Debounce between keystrokes and a full re-scan of the editor.
 const SCAN_DEBOUNCE_MS = 200;
-// Debounce before a typing burst is committed to the undo history as one step.
 const HISTORY_DEBOUNCE_MS = 500;
 const TOAST_DURATION_MS = 2200;
-// Gap between a suggestion box and the phrase it overlays.
 const BOX_GAP = 8;
-// Suggestion box width is a rough estimate: longest label text × average
-// character width, clamped between these bounds.
+const STACK_GAP = 6;
+const MAX_STACK_ATTEMPTS = 20;
 const MIN_SUGGESTION_WIDTH = 140;
 const MAX_SUGGESTION_WIDTH = 280;
 const CHAR_WIDTH_PX = 7.6;
@@ -36,18 +30,11 @@ const WIDTH_PADDING_PX = 40;
 /* ==================== State ==================== */
 
 let nextMatchId = 1;
-// All current matches, left to right, rebuilt on every scan.
 let matches = [];
-// Layout data for every match, computed without building any box DOM: the
-// phrase's on-screen rectangle (for hover hit-testing) and where its
-// suggestion box would go. Suggestion boxes are built lazily on hover.
-let matchLayouts = [];
-// The single suggestion box currently shown, if any.
-let visibleBox = null;
+let phraseRects = [];
 let rescanTimer = null;
+let previousLength = 0;
 
-// Undo/redo timeline: history is a stack of text snapshots, historyIndex
-// points at the currently visible one. Everything after it is the redo stack.
 let history = [textarea.value];
 let historyIndex = 0;
 let historyTimer = null;
@@ -55,28 +42,13 @@ let toastTimer = null;
 
 /* ==================== Dictionary index ==================== */
 
-// Dictionary phrases grouped by their first word, so a scan only ever looks
-// at phrases that could actually match at the current position.
 const indexByFirstWord = new Map();
 
-/**
- * Counts the words in a string (empty and whitespace-only strings count as 0).
- * @param {string} text
- * @returns {number}
- */
 function wordCount(text) {
   const trimmed = text.trim();
   return trimmed === "" ? 0 : trimmed.split(/\s+/).length;
 }
 
-/**
- * Filters out replacements that would lengthen the copy. The "never extend
- * the copy" rule: a replacement must have fewer words than the phrase, or —
- * if the same number of words — must not be longer in characters.
- * @param {string} phrase The verbose phrase being replaced.
- * @param {string[]} replacements Candidate alternatives.
- * @returns {string[]} Only the replacements that shorten (or at least never lengthen) the copy.
- */
 function usableReplacements(phrase, replacements) {
   const phraseWordCount = wordCount(phrase);
   return replacements.filter((replacement) => {
@@ -87,12 +59,6 @@ function usableReplacements(phrase, replacements) {
   });
 }
 
-/**
- * Sorts replacements shortest-first: fewest words, then fewest characters.
- * The first entry is what "Replace All" applies.
- * @param {string[]} replacements
- * @returns {string[]} A new, ranked array (the input is not mutated).
- */
 function rankShortestFirst(replacements) {
   return [...replacements].sort((a, b) => {
     const aWords = wordCount(a);
@@ -102,22 +68,12 @@ function rankShortestFirst(replacements) {
   });
 }
 
-/**
- * Adds an indexed entry to the first-word bucket, creating it if needed.
- * @param {string} firstWord The phrase's first word, lowercased.
- * @param {object} entry The indexed entry ({ phrase, words, replacements }).
- */
 function addToIndex(firstWord, entry) {
   const bucket = indexByFirstWord.get(firstWord);
   if (bucket) bucket.push(entry);
   else indexByFirstWord.set(firstWord, [entry]);
 }
 
-/**
- * Builds the first-word index from DICTIONARY at load time. Applies the
- * never-extend rule, ranks each entry's replacements shortest-first, and
- * drops entries left with no usable replacements.
- */
 function buildIndex() {
   indexByFirstWord.clear();
   const droppedPhrases = [];
@@ -141,13 +97,6 @@ function buildIndex() {
 
 /* ==================== Tokenizer ==================== */
 
-/**
- * Splits text into word tokens. A token carries its exact text, a lowercased
- * copy for matching, and its character offsets. Apostrophes stay inside
- * words, so "today's" is one token.
- * @param {string} text
- * @returns {Array<{text: string, lower: string, start: number, end: number}>}
- */
 function tokenize(text) {
   const tokens = [];
   const pattern = /[A-Za-z0-9']+/g;
@@ -165,14 +114,6 @@ function tokenize(text) {
 
 /* ==================== Matching ==================== */
 
-/**
- * Walks the text left to right and returns every non-overlapping match
- * starting at or after fromCharIndex. Greedy: at each position the longest
- * matching phrase wins, and the scan skips past it.
- * @param {string} text
- * @param {number} fromCharIndex Only matches starting at or after this character offset are returned.
- * @returns {Array<{id: number, entry: object, firstWordText: string, startChar: number, endChar: number}>}
- */
 function scan(text, fromCharIndex) {
   const tokens = tokenize(text);
   const found = [];
@@ -194,13 +135,6 @@ function scan(text, fromCharIndex) {
   return found;
 }
 
-/**
- * Finds the longest dictionary phrase that matches the tokens starting at
- * startIndex. Only the first-word bucket for the current token is consulted.
- * @param {Array} tokens From tokenize().
- * @param {number} startIndex Index of the token to try matching at.
- * @returns {object|null} The best indexed entry, or null if nothing matches.
- */
 function findLongestMatch(tokens, startIndex) {
   const candidates = indexByFirstWord.get(tokens[startIndex].lower);
   if (!candidates) return null;
@@ -212,14 +146,6 @@ function findLongestMatch(tokens, startIndex) {
   return longest;
 }
 
-/**
- * Checks whether the tokens at startIndex equal the given phrase words
- * (word 0 is already known to match; only words 1..n are compared).
- * @param {Array} tokens From tokenize().
- * @param {number} startIndex
- * @param {string[]} words Lowercased phrase words from an indexed entry.
- * @returns {boolean}
- */
 function tokensMatch(tokens, startIndex, words) {
   if (startIndex + words.length > tokens.length) return false;
   for (let i = 1; i < words.length; i++) {
@@ -228,14 +154,6 @@ function tokensMatch(tokens, startIndex, words) {
   return true;
 }
 
-/**
- * Builds a match record (with a fresh id) from a matched entry and the
- * tokens it spans.
- * @param {object} entry The indexed dictionary entry.
- * @param {Array} tokens From tokenize().
- * @param {number} startIndex Token index where the match begins.
- * @returns {object} The match record used by rendering and editing.
- */
 function matchFromTokens(entry, tokens, startIndex) {
   const endIndex = startIndex + entry.words.length - 1;
   return {
@@ -247,14 +165,6 @@ function matchFromTokens(entry, tokens, startIndex) {
   };
 }
 
-/**
- * Adjusts a replacement's casing to match how the phrase appears in the
- * text: ALL-CAPS phrases get an ALL-CAPS replacement, sentence-initial
- * phrases get a capitalized one, everything else stays lowercase.
- * @param {object} match
- * @param {string} replacement
- * @returns {string}
- */
 function applyCasing(match, replacement) {
   const firstWord = match.firstWordText;
   if (firstWord.length > 1 && firstWord === firstWord.toUpperCase()) {
@@ -266,23 +176,10 @@ function applyCasing(match, replacement) {
   return replacement;
 }
 
-/**
- * @param {string} text
- * @returns {string} The same text with its first letter capitalized.
- */
 function firstLetterToUpperCase(text) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-/**
- * Replaces a match's character span in the text. An empty replacement
- * ("delete the phrase") also absorbs the adjacent space so words don't get
- * glued together — "in the month of January" becomes "in January".
- * @param {string} text
- * @param {object} match
- * @param {string} replacement
- * @returns {string}
- */
 function spliceReplacement(text, match, replacement) {
   let startIndex = match.startChar;
   let endIndex = match.endChar;
@@ -295,15 +192,10 @@ function spliceReplacement(text, match, replacement) {
 
 /* ==================== Rendering ==================== */
 
-/**
- * Rebuilds the whole view: the highlight mirror, the suggestion boxes, the
- * editor height, and the stats bar. Called after every scan or edit.
- */
 function render() {
   const text = textarea.value;
   mirror.textContent = "";
   boxesLayer.textContent = "";
-  hideBox();
   if (text) {
     const orderedMatches = [...matches].sort((a, b) => a.startChar - b.startChar);
     renderMirror(text, orderedMatches);
@@ -313,13 +205,6 @@ function render() {
   updateStats();
 }
 
-/**
- * Fills the mirror with the same text as the textarea, wrapping each matched
- * phrase in a <mark> so it can be highlighted. The mirror is purely visual:
- * the transparent textarea on top of it keeps native typing and selection.
- * @param {string} text
- * @param {Array} orderedMatches Matches sorted by startChar.
- */
 function renderMirror(text, orderedMatches) {
   const fragment = document.createDocumentFragment();
   let cursor = 0;
@@ -336,22 +221,11 @@ function renderMirror(text, orderedMatches) {
   mirror.append(fragment);
 }
 
-/**
- * Keeps the transparent textarea tall enough to show the mirror's content
- * and scroll with it.
- */
 function syncEditorHeights() {
   const height = Math.max(mirror.offsetHeight, editor.clientHeight);
   textarea.style.height = height + "px";
 }
 
-/**
- * Estimates a suggestion box width from its longest label (phrase or
- * replacement), clamped between MIN/MAX_SUGGESTION_WIDTH. A heuristic, not
- * measured text — good enough for stacking purposes.
- * @param {object} match
- * @returns {number} Width in pixels.
- */
 function estimateSuggestionBoxWidth(match) {
   const longestText = match.entry.replacements
     .concat(match.entry.phrase)
@@ -362,66 +236,6 @@ function estimateSuggestionBoxWidth(match) {
   );
 }
 
-/**
- * Computes the layout for every match without building any suggestion-box
- * DOM: where each phrase is on screen (for hover hit-testing) and where its
- * box would go. The box overlays its phrase, sitting just above it — flipped
- * below only when there's no room above (phrase at the top of the editor).
- * Only one box exists at a time (built on hover), so boxes never need to be
- * stacked against each other. Coordinates are in content space (relative to
- * the editor's scroll position), since the boxes layer scrolls with the
- * editor.
- * @param {Array} orderedMatches Matches sorted by startChar, parallel to marks.
- * @param {NodeList} marks The <mark> elements from the mirror, in the same order.
- */
-function layoutSuggestionBoxes(orderedMatches, marks) {
-  if (!marks.length) return;
-  const editorRect = editor.getBoundingClientRect();
-  const scrollLeft = editor.scrollLeft;
-  const scrollTop = editor.scrollTop;
-  matchLayouts = [];
-
-  for (let i = 0; i < marks.length; i++) {
-    const mark = marks[i];
-    const match = orderedMatches[i];
-    const markRect = mark.getBoundingClientRect();
-    const left = markRect.left - editorRect.left + scrollLeft;
-    const contentTop = markRect.top - editorRect.top + scrollTop;
-    matchLayouts.push({
-      id: match.id,
-      width: estimateSuggestionBoxWidth(match),
-      left,
-      top: topForBoxAbovePhrase(contentTop, markRect.height),
-      phraseRect: {
-        left: markRect.left,
-        top: markRect.top,
-        right: markRect.right,
-        bottom: markRect.bottom,
-      },
-    });
-  }
-}
-
-/**
- * Where a box's top edge goes: BOX_GAP above the phrase, so the box overlays
- * it. If that would push the box off the top of the editor, it flips to just
- * below the phrase instead.
- * @param {number} contentTop Content-space top of the phrase.
- * @param {number} phraseHeight On-screen height of the phrase.
- * @returns {number} The box's top offset in content space.
- */
-function topForBoxAbovePhrase(contentTop, phraseHeight) {
-  let top = contentTop - BOX_GAP;
-  if (top < 0) top = contentTop + phraseHeight + BOX_GAP;
-  return top;
-}
-
-/**
- * Builds the DOM for one suggestion box: a header with the original phrase
- * and a dismiss button, plus one option button per usable replacement.
- * @param {object} match
- * @returns {HTMLElement} The .suggest-box element, not yet positioned.
- */
 function buildSuggestionBox(match) {
   const box = document.createElement("div");
   box.className = "suggest-box";
@@ -457,48 +271,103 @@ function buildSuggestionBox(match) {
   return box;
 }
 
-/**
- * Builds and shows the suggestion box for the given match on demand, at the
- * position recorded during layout. Any previously shown box is removed
- * first, so at most one box exists in the DOM at a time. Pass null to just
- * hide the current box.
- * @param {number|null} id
- */
-function showBoxForMatch(id) {
-  hideBox();
-  if (id == null) return;
-  const layout = matchLayouts.find((l) => l.id === id);
-  const match = matches.find((m) => m.id === id);
-  if (!layout || !match) return;
-  const box = buildSuggestionBox(match);
-  box.style.width = layout.width + "px";
-  box.style.left = layout.left + "px";
-  box.style.top = layout.top + "px";
-  boxesLayer.append(box);
-  box.classList.add("visible");
-  visibleBox = box;
+function layoutSuggestionBoxes(orderedMatches, marks) {
+  if (!marks.length) return;
+  const editorRect = editor.getBoundingClientRect();
+  const scrollLeft = editor.scrollLeft;
+  const scrollTop = editor.scrollTop;
+  const placedBoxes = [];
+  phraseRects = [];
+
+  for (let i = 0; i < marks.length; i++) {
+    const mark = marks[i];
+    const match = orderedMatches[i];
+    const markRect = mark.getBoundingClientRect();
+    const left = markRect.left - editorRect.left + scrollLeft;
+    const contentTop = markRect.top - editorRect.top + scrollTop;
+    phraseRects.push({
+      id: match.id,
+      left,
+      top: contentTop,
+      right: left + markRect.width,
+      bottom: contentTop + markRect.height,
+    });
+
+    const box = buildSuggestionBox(match);
+    boxesLayer.append(box);
+    const width = estimateSuggestionBoxWidth(match);
+    box.style.width = width + "px";
+    const height = box.offsetHeight;
+
+    const top = positionBox(box, left, width, height, contentTop, markRect.height, placedBoxes);
+
+    placedBoxes.push({ left, right: left + width, top, bottom: top + height });
+  }
 }
 
-/**
- * Removes the currently shown suggestion box, if any.
- */
-function hideBox() {
-  if (visibleBox) {
-    visibleBox.remove();
-    visibleBox = null;
+function positionBox(box, left, width, height, contentTop, phraseHeight, placedBoxes) {
+  let top = contentTop - height - BOX_GAP;
+  top = shiftUpUntilClear(top, left, width, height, placedBoxes);
+  if (top < 0) {
+    top = contentTop + phraseHeight + BOX_GAP;
+    top = shiftDownUntilClear(top, left, width, height, placedBoxes);
+  }
+  top = Math.max(0, top);
+  box.style.left = left + "px";
+  box.style.top = top + "px";
+  return top;
+}
+
+function shiftUpUntilClear(top, left, width, height, placedBoxes) {
+  let attempts = 0;
+  while (attempts++ < MAX_STACK_ATTEMPTS) {
+    const collision = findCollision(top, left, width, height, placedBoxes);
+    if (!collision) break;
+    top = collision.top - height - STACK_GAP;
+  }
+  return top;
+}
+
+function shiftDownUntilClear(top, left, width, height, placedBoxes) {
+  let attempts = 0;
+  while (attempts++ < MAX_STACK_ATTEMPTS) {
+    const collision = findCollision(top, left, width, height, placedBoxes);
+    if (!collision) break;
+    top = collision.bottom + STACK_GAP;
+  }
+  return top;
+}
+
+function findCollision(top, left, width, height, placedBoxes) {
+  return placedBoxes.find(
+    (placed) =>
+      horizontallyOverlaps(left, width, placed) &&
+      verticallyOverlaps(top, height, placed)
+  );
+}
+
+function horizontallyOverlaps(left, width, placed) {
+  return left < placed.right && left + width > placed.left;
+}
+
+function verticallyOverlaps(top, height, placed) {
+  return top < placed.bottom && top + height > placed.top;
+}
+
+function showBoxForMatch(id) {
+  for (const box of boxesLayer.children) {
+    box.classList.toggle("visible", Number(box.dataset.matchId) === id);
+  }
+}
+
+function hideAllBoxes() {
+  for (const box of boxesLayer.children) {
+    box.classList.remove("visible");
   }
 }
 
 /* ==================== Editing ==================== */
 
-/**
- * Targeted re-scan after a single-phrase edit: keeps every suggestion that
- * ends before the edit zone, then re-matches from a context window before
- * the edit to the end. Anything matched again keeps a fresh id, so
- * dismissed suggestions inside the edited region come back if they still
- * match.
- * @param {number} editStartChar Character offset where the edit happened.
- */
 function rescanAroundEdit(editStartChar) {
   const text = textarea.value;
   const tokens = tokenize(text);
@@ -511,12 +380,6 @@ function rescanAroundEdit(editStartChar) {
   matches = matches.concat(scan(text, rescanStart));
 }
 
-/**
- * Applies one replacement: rewrites the text, records the edit in history,
- * re-scans around the edit, re-renders, and reports the savings in a toast.
- * @param {object} match
- * @param {string} replacement The raw replacement (casing is applied here).
- */
 function applyMatch(match, replacement) {
   const text = textarea.value;
   const applied = applyCasing(match, replacement);
@@ -530,25 +393,12 @@ function applyMatch(match, replacement) {
   showToast(replacementMessage(match, applied, savedChars, savedWords));
 }
 
-/**
- * Builds the toast text for a single replacement, e.g.
- * "“due to the fact that” → “since” · saved 14 chars, 3 words".
- * @param {object} match
- * @param {string} applied The cased replacement that was applied.
- * @param {number} savedChars
- * @param {number} savedWords
- * @returns {string}
- */
 function replacementMessage(match, applied, savedChars, savedWords) {
   const phrase = "\u201c" + match.entry.phrase + "\u201d";
   const change = applied === "" ? "Removed " + phrase : phrase + " \u2192 \u201c" + applied + "\u201d";
   return change + " \u00b7 saved " + formatSavings(savedChars, savedWords);
 }
 
-/**
- * Applies the shortest option to every match at once. Matches are processed
- * right to left so earlier character offsets stay valid as the text shrinks.
- */
 function replaceAll() {
   const ordered = [...matches].sort((a, b) => b.startChar - a.startChar);
   if (ordered.length === 0) return;
@@ -571,11 +421,9 @@ function replaceAll() {
   );
 }
 
-/**
- * Empties the editor and records the empty state in history.
- */
 function clearAll() {
   textarea.value = "";
+  previousLength = 0;
   pushHistory("");
   matches = [];
   render();
@@ -583,11 +431,6 @@ function clearAll() {
 
 /* ==================== Undo / redo ==================== */
 
-/**
- * Commits a new text snapshot to the timeline. Anything ahead of the current
- * position (the redo stack) is discarded, since the timeline has branched.
- * @param {string} newText
- */
 function pushHistory(newText) {
   clearTimeout(historyTimer);
   history = history.slice(0, historyIndex + 1);
@@ -596,20 +439,13 @@ function pushHistory(newText) {
   updateHistoryButtons();
 }
 
-/**
- * Replaces the editor contents and re-scans from scratch (used by undo/redo,
- * where no edit offset is known).
- * @param {string} newText
- */
 function setTextAndRescan(newText) {
   textarea.value = newText;
+  previousLength = newText.length;
   matches = scan(newText, 0);
   render();
 }
 
-/**
- * Steps back one snapshot in the timeline, if there is one.
- */
 function undo() {
   if (historyIndex <= 0) return;
   clearTimeout(historyTimer);
@@ -618,9 +454,6 @@ function undo() {
   updateHistoryButtons();
 }
 
-/**
- * Steps forward one snapshot in the timeline, if there is one.
- */
 function redo() {
   if (historyIndex >= history.length - 1) return;
   clearTimeout(historyTimer);
@@ -629,9 +462,6 @@ function redo() {
   updateHistoryButtons();
 }
 
-/**
- * Enables/disables the Undo and Redo buttons to match the timeline position.
- */
 function updateHistoryButtons() {
   undoBtn.disabled = historyIndex <= 0;
   redoBtn.disabled = historyIndex >= history.length - 1;
@@ -639,9 +469,6 @@ function updateHistoryButtons() {
 
 /* ==================== UI state ==================== */
 
-/**
- * Updates the suggestion count and the enabled state of the toolbar buttons.
- */
 function updateStats() {
   const count = matches.length;
   statsElement.textContent =
@@ -650,22 +477,12 @@ function updateStats() {
   updateHistoryButtons();
 }
 
-/**
- * Formats a savings figure, e.g. "14 chars, 3 words" (pluralizes correctly).
- * @param {number} savedChars
- * @param {number} savedWords
- * @returns {string}
- */
 function formatSavings(savedChars, savedWords) {
   const parts = [savedChars + " char" + (savedChars === 1 ? "" : "s")];
   if (savedWords > 0) parts.push(savedWords + " word" + (savedWords === 1 ? "" : "s"));
   return parts.join(", ");
 }
 
-/**
- * Shows a transient toast message, replacing any toast currently visible.
- * @param {string} message
- */
 function showToast(message) {
   toastEl.textContent = message;
   toastEl.classList.add("show");
@@ -675,26 +492,15 @@ function showToast(message) {
 
 /* ==================== Events ==================== */
 
-/**
- * Full re-scan of the whole editor (the debounced handler for typing).
- */
 function scheduleFullRescan() {
   matches = scan(textarea.value, 0);
   render();
 }
 
-/**
- * Commits the current text to history once the user has paused typing, so a
- * burst of keystrokes is one undo step. No-op if the text didn't change.
- */
 function recordTypingBurst() {
   if (textarea.value !== history[historyIndex]) pushHistory(textarea.value);
 }
 
-// Two debounce timers on input: a fast one (200 ms) to keep suggestions in
-// sync while typing, and a slower one (500 ms) to commit the burst to the
-// undo timeline. Clearing the input takes the fast path: cancel pending
-// timers, drop all suggestions, and commit immediately.
 textarea.addEventListener("input", () => {
   if (textarea.value === "") {
     clearTimeout(rescanTimer);
@@ -702,53 +508,41 @@ textarea.addEventListener("input", () => {
     matches = [];
     render();
     pushHistory("");
+    previousLength = 0;
     return;
   }
   clearTimeout(rescanTimer);
-  rescanTimer = setTimeout(scheduleFullRescan, SCAN_DEBOUNCE_MS);
+  if (textarea.value.length < previousLength) {
+    scheduleFullRescan();
+  } else {
+    rescanTimer = setTimeout(scheduleFullRescan, SCAN_DEBOUNCE_MS);
+  }
+  previousLength = textarea.value.length;
   clearTimeout(historyTimer);
   historyTimer = setTimeout(recordTypingBurst, HISTORY_DEBOUNCE_MS);
 });
 
-// Keep the mirror's scroll position in lockstep with the textarea.
 textarea.addEventListener("scroll", () => {
   mirror.scrollTop = textarea.scrollTop;
   mirror.scrollLeft = textarea.scrollLeft;
 });
 
-/**
- * Finds a match by id, or undefined if it's gone (e.g. after a re-scan).
- * @param {number} id
- * @returns {object|undefined}
- */
 function findMatchById(id) {
   return matches.find((match) => match.id === id);
 }
 
-/**
- * Handles a click on a replacement option: resolves the box's match and
- * applies the chosen replacement.
- * @param {HTMLElement} button The clicked .suggest-opt button.
- */
 function applyReplacementFromBox(button) {
   const box = button.closest(".suggest-box");
   const match = findMatchById(Number(box.dataset.matchId));
   if (match) applyMatch(match, button.dataset.replacement);
 }
 
-/**
- * Handles a click on a dismiss button: removes the suggestion until the
- * next re-scan.
- * @param {HTMLElement} button The clicked .suggest-dismiss button.
- */
 function dismissMatchFromBox(button) {
   const box = button.closest(".suggest-box");
   matches = matches.filter((match) => match.id !== Number(box.dataset.matchId));
   render();
 }
 
-// One delegated click handler for the whole boxes layer: option buttons
-// apply a replacement, dismiss buttons hide a suggestion.
 boxesLayer.addEventListener("click", (e) => {
   const optionButton = e.target.closest(".suggest-opt");
   if (optionButton) {
@@ -764,7 +558,6 @@ clearBtn.addEventListener("click", clearAll);
 undoBtn.addEventListener("click", undo);
 redoBtn.addEventListener("click", redo);
 
-// Keyboard shortcuts: Cmd/Ctrl+Z to undo, Cmd/Ctrl+Shift+Z and Ctrl+Y to redo.
 document.addEventListener("keydown", (e) => {
   const isShortcutModifier = e.metaKey || e.ctrlKey;
   if (!isShortcutModifier) return;
@@ -779,36 +572,37 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-/**
- * @param {number} x
- * @param {number} y
- * @param {{left: number, top: number, right: number, bottom: number}} rect
- * @returns {boolean} Whether the point lies inside the rect.
- */
 function pointInRect(x, y, rect) {
   return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
 }
 
-// Hover tracking: while the pointer is over the visible box, keep it open
-// (so it doesn't flicker as the pointer leaves the phrase); otherwise
-// hit-test against the recorded phrase rectangles and build the box for the
-// hovered phrase on demand.
 editor.addEventListener("mousemove", (e) => {
   const x = e.clientX;
   const y = e.clientY;
-  if (visibleBox && pointInRect(x, y, visibleBox.getBoundingClientRect())) {
-    return;
+  for (const box of boxesLayer.children) {
+    if (pointInRect(x, y, box.getBoundingClientRect())) {
+      showBoxForMatch(Number(box.dataset.matchId));
+      return;
+    }
   }
-  const hit = matchLayouts.find((layout) => pointInRect(x, y, layout.phraseRect));
+  const editorRect = editor.getBoundingClientRect();
+  const hit = phraseRects.find((rect) =>
+    pointInRect(
+      x - editorRect.left + editor.scrollLeft,
+      y - editorRect.top + editor.scrollTop,
+      rect
+    )
+  );
   showBoxForMatch(hit ? hit.id : null);
 });
 
-editor.addEventListener("mouseleave", hideBox);
+editor.addEventListener("mouseleave", hideAllBoxes);
 
 window.addEventListener("resize", () => render());
 
 /* ==================== Init ==================== */
 
 buildIndex();
+previousLength = textarea.value.length;
 matches = scan(textarea.value, 0);
 render();

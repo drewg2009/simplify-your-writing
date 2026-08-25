@@ -42,7 +42,7 @@ Anything that would make the text longer is discarded at startup (and logged to 
 - **Hash index** — at startup every dictionary phrase is indexed by its **first word** (`Map<firstWord, entries[]>`), so the scanner only ever looks at candidates that can actually match at the current position.
 - **Greedy longest-match scan** — the text is walked left to right. At each word only the first-word bucket is consulted, and the longest matching phrase wins (so `because of the fact that` beats `because of`, and they never overlap).
 - **Overlaps** — matches never overlap in the text, but their suggestion boxes can collide horizontally, so boxes are **staggered** into stacked rows above the phrase (flipping below the text when there's no room above).
-- **Hover tracking** — during layout every phrase's on-screen rectangle and box position are recorded (`matchLayouts`) with no DOM built for the boxes themselves. A `mousemove` handler hit-tests the pointer against those rects (plus the visible box's own rect, so the box stays open under the pointer) and builds the one suggestion box for the hovered phrase on demand. The box overlays its phrase, sitting just above it (flipping below when there's no room); at most one box exists in the DOM at a time.
+- **Hover tracking** — during layout every phrase's rectangle is recorded in **editor-content coordinates** (`phraseRects`, so the rects stay valid while the editor scrolls), and a `mousemove` handler hit-tests the pointer against those rects (plus the visible box rects) so only the hovered phrase's box is ever shown. The phrase's character span is what gets tracked; the rects are derived from it each render.
 
 ### 4. Editing
 
@@ -50,7 +50,7 @@ Anything that would make the text longer is discarded at startup (and logged to 
 - **Replace All** — applies the first (shortest) option to every suggestion at once, then re-scans. The toast reports how many phrases were replaced and the total characters and words saved.
 - **Undo / redo** — a timeline of text snapshots: every change (replace, replace all, clear, and typing bursts) pushes a new snapshot and discards anything ahead of it in the redo stack; undo pops backwards and re-pushes onto the redo stack. Typing is coalesced (a 500 ms idle debounce), so a burst of keystrokes is one undo step. Buttons in the toolbar, plus `Cmd/Ctrl+Z`, `Cmd/Ctrl+Shift+Z`, and `Ctrl+Y`.
 - **Dismiss (×)** — hides that suggestion until the next re-scan.
-- **Typing/pasting** — a 200 ms debounce triggers a full re-scan so suggestions stay in sync as you edit manually.
+- **Typing/pasting** — a 200 ms debounce triggers a full re-scan so suggestions stay in sync as you type; deletions re-scan immediately so highlights never lag behind removed text.
 
 ### 5. Rendering
 
@@ -82,6 +82,13 @@ The unit tests use Node's built-in test runner — no dependencies to install:
 
 ```sh
 node --test
+```
+
+The end-to-end test runs the real app in a headless browser (Playwright, using your installed Chrome) and is needed for scroll/hover geometry that the unit harness can't simulate:
+
+```sh
+npm install   # first time only
+npm run test:e2e
 ```
 
 ## Adding your own rules

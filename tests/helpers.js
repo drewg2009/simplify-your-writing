@@ -14,15 +14,6 @@ const INTERNALS_EXPORT =
   "get history() { return history; }" +
   "};";
 
-/**
- * Creates a minimal fake DOM element for the test stub. Element state
- * (children, classes, dataset, listeners) lives on plain object properties,
- * so tests can inspect it directly. textContent mirrors the browser: setting
- * it to "" clears the children.
- * @param {string} id
- * @param {{initialValue?: string, tagName?: string}} [options]
- * @returns {object} The fake element.
- */
 function createElement(id, options = {}) {
   const classes = new Set();
   const el = {
@@ -64,13 +55,6 @@ function createElement(id, options = {}) {
       el.children.push(child);
       return child;
     },
-    remove() {
-      if (el.parentNode) {
-        const index = el.parentNode.children.indexOf(el);
-        if (index !== -1) el.parentNode.children.splice(index, 1);
-        el.parentNode = null;
-      }
-    },
     closest(selector) {
       const wanted = selector.replace(".", "");
       let node = el;
@@ -104,18 +88,6 @@ function createElement(id, options = {}) {
   return el;
 }
 
-/**
- * Loads dictionary.js and app.js together in a sandboxed vm context with a
- * fake DOM, exactly like the browser loads them. Returns the app's functions
- * (via the context), the stubbed elements, and a fire() helper for
- * dispatching events captured by addEventListener.
- *
- * Note: app.js's timers resolve through getters, so tests can use
- * node:test's mock timers to control them.
- *
- * @param {string} [initialText] Starting value of the editor textarea.
- * @returns {{app: object, internals: object, elements: object, input: object, fire: Function}}
- */
 function loadApp(initialText = "") {
   const dictSource = fs.readFileSync(path.join(ROOT, "dictionary.js"), "utf8");
   const appSource = fs.readFileSync(path.join(ROOT, "app.js"), "utf8");
@@ -142,12 +114,6 @@ function loadApp(initialText = "") {
   const context = vm.createContext(sandbox);
   vm.runInContext(dictSource + "\n" + appSource + "\n" + INTERNALS_EXPORT, context);
 
-  /**
-   * Dispatches a captured event listener on a stubbed element.
-   * @param {object} element
-   * @param {string} type
-   * @param {object} [event] The event object passed to the handler.
-   */
   function fire(element, type, event = {}) {
     element.listeners[type](event);
   }

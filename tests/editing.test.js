@@ -51,7 +51,6 @@ test("dismissing a suggestion removes it until the next re-scan", () => {
   const { app, elements, fire } = loadApp("due to the fact that we tried");
   app.scheduleFullRescan();
   app.render();
-  fire(elements["editor"], "mousemove", { clientX: 50, clientY: 15 });
   const box = elements["boxes"].children[0];
   const dismissButton = box.children[0].children[1];
   fire(elements["boxes"], "click", { target: dismissButton });
